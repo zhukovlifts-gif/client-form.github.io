@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REBOOT SYSTEM — Анкета клієнта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0F;
+  --bg2:#111118;
+  --bg3:#16161F;
+  --bg4:#1C1C28;
+  --glass:rgba(255,255,255,0.032);
+  --gb:rgba(255,255,255,0.08);
+  --gb2:rgba(255,255,255,0.05);
+  --ac:#F5A623;
+  --ac2:#FFB84D;
+  --ac3:#FFD580;
+  --ag:rgba(245,166,35,0.12);
+  --ag2:rgba(245,166,35,0.06);
+  --vip:#A78BFA;
+  --vip2:#C4B5FD;
+  --red:#FF3B30;
+  --green:#30D158;
+  --blue:#0A84FF;
+  --w:#F4F4F8;
+  --w8:rgba(244,244,248,0.88);
+  --w7:rgba(244,244,248,0.75);
+  --w6:rgba(244,244,248,0.65);
+  --w4:rgba(244,244,248,0.45);
+  --w2:rgba(244,244,248,0.22);
+  --w1:rgba(244,244,248,0.09);
+  --fh:'Syne',sans-serif;
+  --f:'Space Grotesk',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --r:14px;
+  --r2:10px;
+  --r3:8px;
+  --r-pill:999px;
+  --shadow-card:0 2px 20px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05);
+  --shadow-btn:0 4px 20px rgba(245,166,35,0.35),0 0 0 1px rgba(245,166,35,0.3);
+}
+
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  font-family:var(--f);background:var(--bg);color:var(--w);
+  overflow-x:hidden;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:rgba(245,166,35,0.3);border-radius:3px}
+
+/* static bg grain */
+#static-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.025;
+}
+#static-bg::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245,120,10,0.14) 0%, transparent 70%);
+}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;
+  background:rgba(7,7,9,0.80);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.nav-logo-mark{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fh);font-size:16px;font-weight:800;color:#000;
+  box-shadow:0 2px 12px rgba(245,166,35,0.4);
+  flex-shrink:0;
+}
+.nav-logo-text{
+  font-family:var(--fh);font-size:16px;font-weight:800;
+  letter-spacing:.05em;color:var(--w);line-height:1;
+}
+.nav-logo-text em{color:var(--ac);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-icon-btn{
+  width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.08);
+  background:var(--bg3);
+  text-decoration:none;transition:all .2s;
+}
+.nav-icon-btn:hover{background:var(--bg4);border-color:rgba(255,255,255,0.15);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--ac) 0%,#FF8C42 100%);
+  color:#000;border:none;
+  padding:9px 20px;border-radius:var(--r-pill);
+  font-family:var(--f);font-size:13px;font-weight:700;
+  letter-spacing:.02em;
+  cursor:pointer;transition:all .25s;white-space:nowrap;
+  box-shadow:0 2px 16px rgba(245,166,35,0.3);
+  text-decoration:none;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(245,166,35,0.45);filter:brightness(1.05);}
+
+/* ═══ WRAP ═══ */
+.wrap{max-width:780px;margin:0 auto;padding:0 20px 120px;position:relative;z-index:1;padding-top:58px;}
+
+/* ═══ HERO ═══ */
+.hero{padding:60px 0 40px;text-align:center;}
+.status-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--w4);background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:var(--r-pill);padding:6px 16px;margin-bottom:24px;
+}
+.status-dot{width:5px;height:5px;border-radius:50%;background:var(--ac);box-shadow:0 0 6px var(--ac);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+
+.hero-title{
+  font-family:var(--fh);font-size:clamp(44px,9vw,72px);
+  font-weight:800;letter-spacing:.02em;line-height:.95;
+  color:var(--w);margin-bottom:16px;
+}
+.hero-title em{color:var(--ac);font-style:normal;}
+.hero-sub{font-size:14px;color:var(--w4);max-width:420px;margin:0 auto;line-height:1.7;font-weight:400;}
+
+/* ═══ TIER ═══ */
+.tier-wrap{margin-bottom:24px;text-align:center;}
+.tier-ey{
+  font-family:var(--fm);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--w4);margin-bottom:12px;font-weight:500;
+}
+.tier-pills{
+  display:inline-flex;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);border-radius:var(--r);padding:4px;gap:4px;
+}
+.tp{
+  padding:9px 26px;border-radius:var(--r2);border:1px solid transparent;
+  font-family:var(--fh);font-size:13px;font-weight:800;letter-spacing:0.08em;
+  cursor:pointer;background:transparent;color:var(--w4);transition:all 0.2s;
+}
+.tp:hover{color:var(--w6);}
+.tp.std.on{background:rgba(180,180,190,0.08);color:#c0bfc8;border-color:rgba(180,180,190,0.2);}
+.tp.flag.on{background:var(--ag);color:var(--ac);border-color:rgba(245,166,35,0.3);}
+.tp.vip.on{background:rgba(167,139,250,0.1);color:var(--vip);border-color:rgba(167,139,250,0.25);}
+.tier-info{margin-top:10px;font-size:12px;color:var(--w4);min-height:18px;font-family:var(--fm);}
+
+/* ═══ PROGRESS ═══ */
+.prog-wrap{margin-bottom:28px;}
+.prog-bar{height:1px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:visible;}
+.prog-fill{height:100%;border-radius:2px;transition:width 0.4s cubic-bezier(.22,1,.36,1);width:0%;position:relative;}
+.prog-fill::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:inherit;box-shadow:0 0 8px var(--ac);}
+.pf-std{background:rgba(180,180,190,0.7);}
+.pf-flag{background:linear-gradient(90deg,var(--ac),var(--ac2));}
+.pf-vip{background:linear-gradient(90deg,var(--vip),var(--vip2));}
+
+/* ═══ CARDS ═══ */
+.card{
+  background:var(--bg2);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:var(--r);margin-bottom:8px;overflow:hidden;
+  transition:border-color 0.2s,opacity 0.3s,box-shadow 0.2s;
+  position:relative;
+  box-shadow:var(--shadow-card);
+  animation:cardIn 0.35s cubic-bezier(.22,1,.36,1) both;
+}
+.card:nth-child(1){animation-delay:.04s}.card:nth-child(2){animation-delay:.08s}
+.card:nth-child(3){animation-delay:.12s}.card:nth-child(4){animation-delay:.16s}
+.card:nth-child(5){animation-delay:.20s}.card:nth-child(6){animation-delay:.24s}
+.card:nth-child(7){animation-delay:.28s}.card:nth-child(8){animation-delay:.32s}
+.card:nth-child(9){animation-delay:.36s}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.card:hover{border-color:rgba(255,255,255,0.1);}
+.card.req{border-color:rgba(245,166,35,0.18);}
+.card.req::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--ac),#FF6B35);border-radius:2px 0 0 2px;
+}
+.card.locked{opacity:0.22;pointer-events:none;}
+.card-hd{
+  padding:16px 20px;display:flex;align-items:center;
+  justify-content:space-between;cursor:pointer;user-select:none;
+  transition:background 0.15s;
+}
+.card-hd:hover{background:rgba(255,255,255,0.02);}
+.card-hd-l{display:flex;align-items:center;gap:12px;}
+.card-ic{
+  width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;
+}
+.ic1{background:rgba(10,132,255,0.12);}
+.ic2{background:rgba(245,166,35,0.12);}
+.ic3{background:rgba(48,209,88,0.1);}
+.ic4{background:rgba(255,140,60,0.1);}
+.ic5{background:rgba(167,139,250,0.1);}
+.ic6{background:rgba(255,59,48,0.1);}
+.ic7{background:rgba(90,200,250,0.1);}
+.ic8{background:rgba(255,214,10,0.1);}
+.ic9{background:rgba(48,209,88,0.1);}
+.card-name{font-size:14px;font-weight:600;color:var(--w8);letter-spacing:.01em;}
+.card-sub{font-size:11px;color:var(--w4);margin-top:1px;font-family:var(--fm);}
+.card-hd-r{display:flex;align-items:center;gap:8px;}
+.req-badge{
+  font-family:var(--fm);font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;
+  background:var(--ag);color:var(--ac);border:1px solid rgba(245,166,35,0.2);
+  display:none;
+}
+.card.req .req-badge{display:inline-block;}
+.chev{font-size:9px;color:var(--w4);transition:transform 0.22s;}
+.chev.up{transform:rotate(180deg);}
+
+/* ═══ CARD BODY ═══ */
+.card-bd{padding:0 20px 20px;display:none;}
+.card-bd.open{display:block;}
+
+/* ═══ FORM GRID ═══ */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.f{display:flex;flex-direction:column;gap:6px;}
+.f2{grid-column:1/-1;}
+label{font-size:11px;color:var(--w4);font-weight:500;font-family:var(--fm);letter-spacing:0.04em;}
+.rs{color:var(--ac);margin-left:2px;font-size:10px;}
+
+input,select,textarea{
+  background:var(--bg3);border:1px solid rgba(255,255,255,0.07);
+  border-radius:var(--r2);padding:10px 13px;
+  font-size:13px;color:var(--w);
+  font-family:var(--f);font-weight:400;width:100%;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:rgba(245,166,35,0.45);
+  box-shadow:0 0 0 3px rgba(245,166,35,0.08);
+}
+input::placeholder,textarea::placeholder{color:var(--w2);}
+textarea{resize:vertical;min-height:70px;line-height:1.6;}
+select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 5 5-5z' fill='rgba(244,244,248,0.3)'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;padding-right:30px;
+  cursor:pointer;
+}
+select option{background:var(--bg3);}
+
+/* ═══ PILLS ═══ */
+.pills{display:flex;flex-wrap:wrap;gap:6px;}
+.pill{
+  padding:7px 13px;border-radius:var(--r2);
+  border:1px solid rgba(255,255,255,0.07);background:var(--bg3);
+  font-size:12px;color:var(--w4);font-weight:500;
+  cursor:pointer;transition:all 0.14s;
+  font-family:var(--f);
+}
+.pill:hover{border-color:rgba(245,166,35,0.35);color:var(--w7);background:var(--bg4);}
+.pill.on{border-color:rgba(245,166,35,0.5);color:var(--ac);background:var(--ag);}
+.pill.on-multi{border-color:rgba(245,166,35,0.5);color:var(--ac);background:var(--ag);}
+
+/* ═══ SCALE ═══ */
+.scale{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px;}
+.sb{
+  width:34px;height:34px;border-radius:var(--r2);
+  border:1px solid rgba(255,255,255,0.07);background:var(--bg3);
+  color:var(--w4);font-size:12px;font-weight:600;cursor:pointer;
+  font-family:var(--f);transition:all 0.14s;
+  display:flex;align-items:center;justify-content:center;
+}
+.sb:hover{border-color:rgba(245,166,35,0.4);color:var(--w7);}
+.sb.on{border-color:rgba(245,166,35,0.5);background:var(--ag);color:var(--ac);}
+
+/* ═══ LABS ═══ */
+.lab-hd{display:grid;grid-template-columns:2.4fr 0.9fr 1.5fr 32px;gap:6px;margin-bottom:6px;}
+.lh{font-size:10px;color:var(--w4);padding:0 2px;font-family:var(--fm);letter-spacing:0.04em;}
+.lab-row{display:grid;grid-template-columns:2.4fr 0.9fr 1.5fr 32px;gap:6px;margin-bottom:6px;align-items:center;}
+.lab-row input{font-size:12px;padding:8px 10px;}
+.rm{
+  width:32px;height:36px;border-radius:var(--r2);
+  border:1px solid rgba(255,255,255,0.07);background:transparent;
+  color:var(--w4);cursor:pointer;font-size:12px;transition:all 0.14s;
+}
+.rm:hover{border-color:rgba(255,59,48,0.4);color:var(--red);}
+.add-lab{
+  width:100%;padding:9px;
+  border:1px dashed rgba(245,166,35,0.2);
+  border-radius:var(--r2);background:transparent;color:var(--w4);
+  font-size:12px;cursor:pointer;font-family:var(--f);font-weight:500;
+  transition:all 0.14s;margin-top:5px;
+}
+.add-lab:hover{border-color:rgba(245,166,35,0.45);color:var(--ac);background:var(--ag);}
+
+/* ═══ VALIDATION ═══ */
+.field-err{font-size:11px;color:var(--red);margin-top:3px;display:none;font-family:var(--fm);}
+input.err,select.err,textarea.err{border-color:rgba(255,59,48,0.4);}
+
+/* ═══ GENERATE BTN ═══ */
+.gen-wrap{text-align:center;margin:36px 0 20px;}
+.gen-btn{
+  font-family:var(--fh);font-size:16px;font-weight:800;letter-spacing:0.1em;
+  padding:16px 52px;border-radius:var(--r-pill);border:none;
+  cursor:pointer;transition:all 0.22s;position:relative;overflow:hidden;
+}
+.gen-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);pointer-events:none;
+}
+.gen-btn:hover{transform:translateY(-2px);}
+.gen-btn:active{transform:translateY(0);}
+.gb-std{background:linear-gradient(135deg,#8a8a96,#b0b0be);color:#0A0A0F;box-shadow:0 4px 20px rgba(180,180,190,0.25);}
+.gb-flag{
+  background:linear-gradient(135deg,var(--ac) 0%,#FF8C42 100%);color:#000;
+  box-shadow:var(--shadow-btn);
+}
+.gb-flag:hover{box-shadow:0 8px 30px rgba(245,166,35,0.5);}
+.gb-vip{background:linear-gradient(135deg,var(--vip),var(--vip2));color:#0A0A0F;box-shadow:0 4px 20px rgba(167,139,250,0.3);}
+.val-msg{font-size:12px;color:var(--red);margin-top:10px;display:none;font-family:var(--fm);}
+
+/* ═══ OUTPUT ═══ */
+.out-wrap{
+  display:none;
+  background:var(--bg2);
+  border:1px solid rgba(245,166,35,0.2);
+  border-radius:var(--r);overflow:hidden;margin-bottom:32px;
+  box-shadow:0 0 40px rgba(245,166,35,0.06);
+}
+.out-hd{
+  padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(245,166,35,0.04);
+}
+.out-lbl{
+  font-family:var(--fm);font-size:10px;font-weight:500;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--ac);
+}
+.out-acts{display:flex;gap:6px;}
+.cpbtn,.clbtn{
+  padding:7px 15px;border-radius:var(--r2);
+  border:1px solid rgba(255,255,255,0.08);background:transparent;
+  color:var(--w4);font-size:11px;font-family:var(--f);font-weight:500;cursor:pointer;transition:all 0.15s;
+}
+.cpbtn:hover{border-color:rgba(245,166,35,0.4);color:var(--ac);background:var(--ag);}
+.cpbtn.ok{border-color:rgba(48,209,88,0.4);color:var(--green);background:rgba(48,209,88,0.08);}
+.clbtn:hover{color:var(--red);border-color:rgba(255,59,48,0.3);}
+.out-body{
+  padding:20px;font-size:12px;line-height:1.9;color:var(--w7);
+  white-space:pre-wrap;word-break:break-word;
+  font-family:var(--fm);max-height:540px;overflow-y:auto;
+}
+.out-body::-webkit-scrollbar{width:3px;}
+.out-body::-webkit-scrollbar-thumb{background:var(--ag);border-radius:3px;}
+
+/* ═══ FOOTER ═══ */
+.footer{text-align:center;padding:32px 0 20px;border-top:1px solid rgba(255,255,255,0.05);margin-top:20px;}
+.footer-brand{
+  font-family:var(--fh);font-size:12px;font-weight:800;
+  letter-spacing:0.25em;color:var(--w2);
+}
+.footer-brand em{color:var(--ac);font-style:normal;}
+
+/* ═══ DIVIDER ═══ */
+.sec-divider{
+  display:flex;align-items:center;gap:12px;margin:28px 0 20px;
+}
+.sec-divider-line{flex:1;height:1px;background:rgba(255,255,255,0.05);}
+.sec-divider-label{
+  font-family:var(--fm);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--w4);padding:4px 10px;border:1px solid rgba(255,255,255,0.06);
+  border-radius:var(--r-pill);background:var(--bg2);white-space:nowrap;
+}
+
+@media(max-width:540px){
+  .fg{grid-template-columns:1fr}.f2{grid-column:1}
+  .lab-hd,.lab-row{grid-template-columns:1.8fr 0.7fr 0 32px}
+  .lab-hd .lh:nth-child(3),.lab-row input:nth-child(3){display:none}
+  .tier-pills{flex-wrap:wrap;justify-content:center;}
+  nav{padding:0 16px;}
+  .hero-title{font-size:clamp(36px,12vw,60px);}
+  .gen-btn{padding:14px 32px;font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<div id="static-bg"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="https://zhukovlifts-gif.github.io/mzhukovd-rebootsystem.github.io/" target="_blank" class="nav-logo">
+    <div class="nav-logo-mark">R</div>
+    <div class="nav-logo-text">REBOOT <em>SYSTEM</em></div>
+  </a>
+  <div class="nav-right">
+    <!-- Telegram -->
+    <a href="https://t.me/mzhukov_d_coach" target="_blank" class="nav-icon-btn"
+       style="border-color:rgba(41,182,246,0.2)" title="Telegram">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.48.7-.96.44l-2.64-1.96-1.28 1.24c-.14.14-.26.26-.52.26l.18-2.6 4.72-4.26c.2-.18-.04-.28-.32-.1L7.32 14.4l-2.56-.8c-.56-.18-.58-.56.12-.82l10.02-3.86c.46-.18.86.1.74.88z" fill="#29b6f6"/>
+      </svg>
+    </a>
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/mzhukovd.rebootsystem/" target="_blank" class="nav-icon-btn"
+       style="border-color:rgba(225,48,108,0.2)" title="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="4" stroke="#e1306c" stroke-width="1.8"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="#e1306c"/>
+      </svg>
+    </a>
+    <a href="https://zhukovlifts-gif.github.io/mzhukovd-rebootsystem.github.io/" target="_blank" class="nav-cta">Біо-Аудит →</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      Анкета клієнта · REBOOT SYSTEM
+    </div>
+    <div class="hero-title">АНКЕТА <em>КЛІЄНТА</em></div>
+    <p class="hero-sub">Заповни — отримай персональний протокол. Чим більше деталей, тим точніший результат.</p>
+  </div>
+
+  <!-- ═══ TIER ═══ -->
+  <div class="tier-wrap">
+    <div class="tier-ey">Рівень програми</div>
+    <div class="tier-pills">
+      <button class="tp std" onclick="setTier('std')">STANDARD</button>
+      <button class="tp flag on" onclick="setTier('flag')">FLAGMAN</button>
+      <button class="tp vip" onclick="setTier('vip')">VIP</button>
+    </div>
+    <div class="tier-info" id="t-info"></div>
+  </div>
+
+  <div class="prog-wrap">
+    <div class="prog-bar"><div class="prog-fill pf-flag" id="prog"></div></div>
+  </div>
+
+  <!-- ═══ 1. БАЗОВІ ДАНІ ═══ -->
+  <div class="card req" id="s-base">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic1">👤</div>
+        <div>
+          <div class="card-name">Базові дані</div>
+          <div class="card-sub">Ім'я, вік, контакти</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f">
+          <label>Ім'я <span class="rs">★</span></label>
+          <input id="f-name" placeholder="Максим"/>
+          <div class="field-err" id="e-name">Вкажи ім'я</div>
+        </div>
+        <div class="f">
+          <label>Вік <span class="rs">★</span></label>
+          <input id="f-age" type="number" placeholder="28"/>
+          <div class="field-err" id="e-age">Вкажи вік</div>
+        </div>
+        <div class="f">
+          <label>Стать</label>
+          <select id="f-gender">
+            <option value="">— оберіть —</option>
+            <option>Чоловік</option>
+            <option>Жінка</option>
+          </select>
+        </div>
+        <div class="f">
+          <label>Місто</label>
+          <input id="f-city" placeholder="Київ"/>
+        </div>
+        <div class="f f2">
+          <label>Telegram / Instagram <span class="rs">★</span></label>
+          <input id="f-contacts" placeholder="@нікнейм або +380..."/>
+          <div class="field-err" id="e-contacts">Вкажи контакт</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 2. АНТРОПОМЕТРІЯ ═══ -->
+  <div class="card req" id="s-body">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic2">📏</div>
+        <div>
+          <div class="card-name">Антропометрія</div>
+          <div class="card-sub">Вага, зріст, склад тіла</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f">
+          <label>Вага (кг) <span class="rs">★</span></label>
+          <input id="f-weight" type="number" placeholder="82"/>
+          <div class="field-err" id="e-weight">Вкажи вагу</div>
+        </div>
+        <div class="f">
+          <label>Зріст (см) <span class="rs">★</span></label>
+          <input id="f-height" type="number" placeholder="178"/>
+          <div class="field-err" id="e-height">Вкажи зріст</div>
+        </div>
+        <div class="f">
+          <label>% жиру (якщо відомо)</label>
+          <input id="f-fat" type="number" placeholder="18"/>
+        </div>
+        <div class="f">
+          <label>Обхват талії (см)</label>
+          <input id="f-waist" type="number" placeholder="88"/>
+        </div>
+        <div class="f f2">
+          <label>Тип статури</label>
+          <div class="pills" id="g-body-type">
+            <div class="pill" onclick="pick(this,'g-body-type')">Ектоморф (худий)</div>
+            <div class="pill" onclick="pick(this,'g-body-type')">Мезоморф (атлетичний)</div>
+            <div class="pill" onclick="pick(this,'g-body-type')">Ендоморф (повний)</div>
+            <div class="pill" onclick="pick(this,'g-body-type')">Змішаний</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 3. ЦІЛІ ═══ -->
+  <div class="card req" id="s-goals">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic3">🎯</div>
+        <div>
+          <div class="card-name">Цілі</div>
+          <div class="card-sub">Напрямок, терміни, мотивація</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2">
+          <label>Основна ціль <span class="rs">★</span></label>
+          <div class="pills" id="g-main-goal">
+            <div class="pill" onclick="pick(this,'g-main-goal')">Набір маси</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Схуднення</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Рекомпозиція</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Витривалість</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Здоров'я / довголіття</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Спортивний результат</div>
+          </div>
+          <div class="field-err" id="e-main-goal">Вибери ціль</div>
+        </div>
+        <div class="f">
+          <label>Рівень підготовки</label>
+          <select id="f-level">
+            <option>Початківець (до 1 року)</option>
+            <option>Середній (1–3 роки)</option>
+            <option>Досвідчений (3+ роки)</option>
+          </select>
+        </div>
+        <div class="f">
+          <label>Термін (місяців)</label>
+          <input id="f-timeline" type="number" placeholder="3"/>
+        </div>
+        <div class="f f2">
+          <label>Що вже пробував — не спрацювало?</label>
+          <textarea id="f-tried" placeholder="Дієти, програми, добавки..."></textarea>
+        </div>
+        <div class="f f2">
+          <label>Мотивація / заради чого?</label>
+          <textarea id="f-motivation" placeholder="Особиста причина, подія, бажаний стан..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 4. ХАРЧУВАННЯ ═══ -->
+  <div class="card req" id="s-nutr">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic4">🥩</div>
+        <div>
+          <div class="card-name">Харчування</div>
+          <div class="card-sub">Раціон, режим, обмеження</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f">
+          <label>Прийомів їжі на день</label>
+          <select id="f-meals">
+            <option value="">— оберіть —</option>
+            <option>1–2</option><option>3</option><option>4–5</option><option>6+</option><option>Хаотично</option>
+          </select>
+        </div>
+        <div class="f">
+          <label>Тип харчування</label>
+          <select id="f-diet">
+            <option value="">— оберіть —</option>
+            <option>Всеїдний</option><option>Вегетаріанець</option><option>Веган</option>
+            <option>Keto / Low carb</option><option>Без глютену</option><option>Без лактози</option>
+          </select>
+        </div>
+        <div class="f f2">
+          <label>Типовий день харчування <span class="rs">★</span></label>
+          <textarea id="f-food" placeholder="Сніданок / обід / вечеря / перекуси..."></textarea>
+          <div class="field-err" id="e-food">Опиши харчування</div>
+        </div>
+        <div class="f f2">
+          <label>Алергії / непереносимість</label>
+          <input id="f-allergy" placeholder="Лактоза, горіхи — або 'немає'"/>
+        </div>
+        <div class="f f2">
+          <label>Поточні добавки</label>
+          <input id="f-supps" placeholder="Протеїн, вітаміни — або 'нічого'"/>
+        </div>
+        <div class="f f2">
+          <label>Умови харчування</label>
+          <div class="pills" id="g-food-access">
+            <div class="pill" onclick="pick(this,'g-food-access')">Готую сам</div>
+            <div class="pill" onclick="pick(this,'g-food-access')">Кафе / ресторани</div>
+            <div class="pill" onclick="pick(this,'g-food-access')">Польові умови</div>
+            <div class="pill" onclick="pick(this,'g-food-access')">Нестабільно</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 5. ТРЕНІНГ ═══ -->
+  <div class="card req" id="s-train">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic5">🏋️</div>
+        <div>
+          <div class="card-name">Тренінг</div>
+          <div class="card-sub">Активність, обладнання, спосіб життя</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2">
+          <label>Частота тренувань <span class="rs">★</span></label>
+          <div class="pills" id="g-train-freq">
+            <div class="pill" onclick="pick(this,'g-train-freq')">Не тренується</div>
+            <div class="pill" onclick="pick(this,'g-train-freq')">1–2×/тиж</div>
+            <div class="pill" onclick="pick(this,'g-train-freq')">3–4×/тиж</div>
+            <div class="pill" onclick="pick(this,'g-train-freq')">5+×/тиж</div>
+            <div class="pill" onclick="pick(this,'g-train-freq')">Нестабільно</div>
+          </div>
+          <div class="field-err" id="e-train-freq">Вибери частоту</div>
+        </div>
+        <div class="f f2">
+          <label>Обладнання</label>
+          <div class="pills" id="g-equip">
+            <div class="pill" onclick="pick(this,'g-equip')">Повний зал</div>
+            <div class="pill" onclick="pick(this,'g-equip')">Домашній зал</div>
+            <div class="pill" onclick="pick(this,'g-equip')">Вага тіла</div>
+            <div class="pill" onclick="pick(this,'g-equip')">Змінний</div>
+          </div>
+        </div>
+        <div class="f f2">
+          <label>Спосіб життя <span class="rs">★</span></label>
+          <div class="pills" id="g-lifestyle">
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Офіс / сидячий</div>
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Фізична праця</div>
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Військовий / поле</div>
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Спортсмен</div>
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Нестабільний графік</div>
+          </div>
+          <div class="field-err" id="e-lifestyle">Вибери спосіб життя</div>
+        </div>
+        <div class="f f2">
+          <label>Опис поточного тренінгу</label>
+          <textarea id="f-train" placeholder="Що робить зараз, яка програма..."></textarea>
+        </div>
+        <div class="f f2">
+          <label>Травми / обмеження</label>
+          <input id="f-injuries" placeholder="Коліна, спина — або 'немає'"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 6. ЗДОРОВ'Я (Flagman+) ═══ -->
+  <div class="card" id="s-health" data-section="health" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic6">❤️</div>
+        <div>
+          <div class="card-name">Здоров'я</div>
+          <div class="card-sub">Скарги, сон, стрес, стани</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2">
+          <label>Скарги (можна декілька)</label>
+          <div class="pills" id="g-symptoms">
+            <div class="pill" onclick="multi(this)">😴 Низька енергія</div>
+            <div class="pill" onclick="multi(this)">💤 Поганий сон</div>
+            <div class="pill" onclick="multi(this)">😰 Хронічний стрес</div>
+            <div class="pill" onclick="multi(this)">🌫️ Туман у голові</div>
+            <div class="pill" onclick="multi(this)">🔥 Низьке лібідо</div>
+            <div class="pill" onclick="multi(this)">⚖️ Зайва вага</div>
+            <div class="pill" onclick="multi(this)">💪 Не набирає масу</div>
+            <div class="pill" onclick="multi(this)">😟 Тривожність</div>
+            <div class="pill" onclick="multi(this)">⚡ Втомлюваність</div>
+            <div class="pill" onclick="multi(this)">🫃 Проблеми з ШКТ</div>
+          </div>
+        </div>
+        <div class="f">
+          <label>Якість сну <span class="rs">★</span></label>
+          <select id="f-sleep">
+            <option value="">— оберіть —</option>
+            <option>Добра (7–9 год)</option>
+            <option>Середня (5–7 год)</option>
+            <option>Погана (&lt;5 год)</option>
+            <option>Дуже погана / інсомнія</option>
+          </select>
+          <div class="field-err" id="e-sleep">Вибери якість сну</div>
+        </div>
+        <div class="f">
+          <label>Рівень стресу (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="stress-scale"></div>
+          <input type="hidden" id="f-stress"/>
+          <div class="field-err" id="e-stress">Вкажи рівень стресу</div>
+        </div>
+        <div class="f f2">
+          <label>Хронічні захворювання / діагнози</label>
+          <input id="f-conditions" placeholder="Або 'немає'"/>
+        </div>
+        <div class="f f2">
+          <label>Ліки / гормони</label>
+          <input id="f-meds" placeholder="Або 'немає'"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 7. ПСИХОЛОГІЯ (VIP) ═══ -->
+  <div class="card" id="s-psych" data-section="psych" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic8">🧠</div>
+        <div>
+          <div class="card-name">Психологія</div>
+          <div class="card-sub">Особистість, ставлення до їжі, очікування</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2">
+          <label>Тип особистості</label>
+          <div class="pills" id="g-personality">
+            <div class="pill" onclick="pick(this,'g-personality')">Дисципліна / системність</div>
+            <div class="pill" onclick="pick(this,'g-personality')">Мотивація / результат</div>
+            <div class="pill" onclick="pick(this,'g-personality')">Перфекціонізм</div>
+            <div class="pill" onclick="pick(this,'g-personality')">Прокрастинація</div>
+            <div class="pill" onclick="pick(this,'g-personality')">Змішаний</div>
+          </div>
+        </div>
+        <div class="f f2">
+          <label>Ставлення до їжі</label>
+          <div class="pills" id="g-food-rel">
+            <div class="pill" onclick="pick(this,'g-food-rel')">Їжа — паливо</div>
+            <div class="pill" onclick="pick(this,'g-food-rel')">Їжа — задоволення</div>
+            <div class="pill" onclick="pick(this,'g-food-rel')">Стресове їдіння</div>
+            <div class="pill" onclick="pick(this,'g-food-rel')">Нейтральне</div>
+          </div>
+        </div>
+        <div class="f f2">
+          <label>Що очікуєш від коуча?</label>
+          <div class="pills" id="g-coach">
+            <div class="pill" onclick="pick(this,'g-coach')">Жорсткий контроль</div>
+            <div class="pill" onclick="pick(this,'g-coach')">Підтримка та мотивація</div>
+            <div class="pill" onclick="pick(this,'g-coach')">Тільки план</div>
+            <div class="pill" onclick="pick(this,'g-coach')">Гнучкість</div>
+          </div>
+        </div>
+        <div class="f f2">
+          <label>Психологічні бар'єри</label>
+          <textarea id="f-barriers" placeholder="Що заважає досягати цілей..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ OPTIONAL DIVIDER ═══ -->
+  <div class="sec-divider">
+    <div class="sec-divider-line"></div>
+    <div class="sec-divider-label">Необов'язково — за бажанням</div>
+    <div class="sec-divider-line"></div>
+  </div>
+
+  <!-- ═══ 8. АНАЛІЗИ КРОВІ ═══ -->
+  <div class="card" id="s-labs">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic7">🔬</div>
+        <div>
+          <div class="card-name">Аналізи крові</div>
+          <div class="card-sub">Загальні + спеціальні за статтю — не обов'язково</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="chev">▼</span></div>
+    </div>
+    <div class="card-bd">
+
+      <!-- Дата -->
+      <div class="f f2" style="margin-bottom:16px">
+        <label>Дата здачі аналізів</label>
+        <input id="f-lab-date" type="date"/>
+      </div>
+
+      <!-- ── ЗАГАЛЬНІ ── -->
+      <div class="lab-section-label">📋 Загальні показники (для всіх)</div>
+      <div class="lab-hd"><div class="lh">Показник</div><div class="lh">Результат</div><div class="lh">Норма</div><div class="lh"></div></div>
+      <div id="lab-rows-general"></div>
+
+      <!-- ── ВИБІР СТАТІ ── -->
+      <div class="lab-gender-pick">
+        <div class="lab-gender-label">Гормональна панель — обери стать:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="lg-btn lg-m on" id="lb-male"   onclick="setLabGender('male')">♂ Чоловіча</button>
+          <button class="lg-btn lg-f"   id="lb-female" onclick="setLabGender('female')">♀ Жіноча</button>
+        </div>
+      </div>
+
+      <!-- ── ЧОЛОВІЧІ ── -->
+      <div id="lab-block-male">
+        <div class="lab-section-label" style="color:rgba(10,132,255,0.9)">♂ Чоловічі гормони та специфічні</div>
+        <div class="lab-hd"><div class="lh">Показник</div><div class="lh">Результат</div><div class="lh">Норма</div><div class="lh"></div></div>
+        <div id="lab-rows-male"></div>
+      </div>
+
+      <!-- ── ЖІНОЧІ ── -->
+      <div id="lab-block-female" style="display:none">
+        <div class="lab-section-label" style="color:rgba(255,105,180,0.9)">♀ Жіночі гормони та специфічні</div>
+        <div class="lab-hd"><div class="lh">Показник</div><div class="lh">Результат</div><div class="lh">Норма</div><div class="lh"></div></div>
+        <div id="lab-rows-female"></div>
+      </div>
+
+      <button class="add-lab" type="button" onclick="addLabCustom()">+ Додати власний показник</button>
+    </div>
+  </div>
+
+  <!-- ═══ 9. ДОДАТКОВА ІНФОРМАЦІЯ ═══ -->
+  <div class="card" id="s-extra">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l">
+        <div class="card-ic ic9">📋</div>
+        <div>
+          <div class="card-name">Додаткова інформація</div>
+          <div class="card-sub">Нотатки, фокус, дата старту — не обов'язково</div>
+        </div>
+      </div>
+      <div class="card-hd-r"><span class="chev">▼</span></div>
+    </div>
+    <div class="card-bd">
+      <div class="fg">
+        <div class="f">
+          <label>Обрана програма</label>
+          <select id="f-plan">
+            <option value="">— оберіть —</option>
+            <option>Тіло під ключ</option>
+            <option>Анті-Фітнес</option>
+            <option>Протокол 80/20</option>
+          </select>
+        </div>
+        <div class="f">
+          <label>Дата старту</label>
+          <input id="f-start" type="date"/>
+        </div>
+        <div class="f f2">
+          <label>Основний фокус</label>
+          <input id="f-focus" placeholder="Верхня частина тіла, метаболізм, гормони..."/>
+        </div>
+        <div class="f f2">
+          <label>Додаткові нотатки</label>
+          <textarea id="f-notes" placeholder="Все, що може бути корисним..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ GENERATE (після всіх блоків) ═══ -->
+  <div class="gen-wrap">
+    <button class="gen-btn gb-flag" id="gen-btn" onclick="generate()">⚡ СФОРМУВАТИ АНКЕТУ</button>
+    <div class="val-msg" id="val-msg"></div>
+  </div>
+
+  <!-- ═══ OUTPUT ═══ -->
+  <div class="out-wrap" id="out-wrap">
+    <div class="out-hd">
+      <span class="out-lbl" id="out-lbl">REBOOT SYSTEM · Анкета</span>
+      <div class="out-acts">
+        <button class="cpbtn" id="cpbtn" onclick="copyOut()">📋 Копіювати</button>
+        <button class="clbtn" onclick="document.getElementById('out-wrap').style.display='none'">✕</button>
+      </div>
+    </div>
+    <pre class="out-body" id="out-body"></pre>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="footer">
+    <div class="footer-brand">REBOOT <em>SYSTEM</em> · @mzhukov_d_coach</div>
+  </div>
+
+</div><!-- /wrap -->
+
+<style>
+/* ── SECTION REVEAL ANIMATION ── */
+.card[data-section]{
+  overflow:hidden;
+  transition:max-height 0.45s cubic-bezier(.22,1,.36,1), opacity 0.35s ease, margin-bottom 0.35s ease;
+}
+.card[data-section].sec-hidden{
+  max-height:0 !important; opacity:0; margin-bottom:0; pointer-events:none;
+}
+.card[data-section].sec-visible{
+  max-height:1200px; opacity:1; margin-bottom:8px;
+}
+/* ── LAB STYLES ── */
+.lab-section-label{
+  font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--w4);margin:12px 0 8px;padding-bottom:6px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.lab-gender-pick{
+  margin:18px 0 14px;padding:14px;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r2);
+}
+.lab-gender-label{
+  font-family:var(--fm);font-size:10px;color:var(--w4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;
+}
+.lg-btn{
+  padding:9px 22px;border-radius:var(--r-pill);
+  border:1px solid rgba(255,255,255,0.1);background:transparent;
+  font-family:var(--fh);font-size:13px;font-weight:800;letter-spacing:0.06em;
+  cursor:pointer;transition:all 0.18s;color:var(--w4);
+}
+.lg-btn:hover{border-color:rgba(255,255,255,0.22);color:var(--w6);}
+.lg-m.on{background:rgba(10,132,255,0.15);border-color:rgba(10,132,255,0.4);color:#60c0ff;}
+.lg-f.on{background:rgba(255,105,180,0.12);border-color:rgba(255,105,180,0.4);color:#ffb3d9;}
+/* ── TIER BADGE ── */
+.tier-badge{
+  font-family:var(--fm);font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;border:1px solid;
+}
+.tier-badge-flag{background:var(--ag);color:var(--ac);border-color:rgba(245,166,35,0.25);}
+.tier-badge-vip{background:rgba(167,139,250,0.1);color:var(--vip);border-color:rgba(167,139,250,0.25);}
+</style>
+
+<script>
+var TIER = 'flag';
+var LAB_GENDER = 'male';
+var LAB_CUSTOM_COUNT = 0;
+
+/* ═══ TIER CONFIG ═══ */
+var TIER_CFG = {
+  std: {
+    label:'Standard', info:'Базовий протокол — тіло, харчування, тренінг',
+    shown:[],
+    required:[
+      {id:'f-name',err:'e-name'},{id:'f-age',err:'e-age'},{id:'f-contacts',err:'e-contacts'},
+      {id:'f-weight',err:'e-weight'},{id:'f-height',err:'e-height'},
+      {id:'g-main-goal',type:'pill',err:'e-main-goal'},
+      {id:'f-food',err:'e-food'},
+      {id:'g-train-freq',type:'pill',err:'e-train-freq'},
+      {id:'g-lifestyle',type:'pill',err:'e-lifestyle'}
+    ]
+  },
+  flag: {
+    label:'Flagman', info:'Розширений аудит — + Здоров\'я',
+    shown:['health'],
+    required:[
+      {id:'f-name',err:'e-name'},{id:'f-age',err:'e-age'},{id:'f-contacts',err:'e-contacts'},
+      {id:'f-weight',err:'e-weight'},{id:'f-height',err:'e-height'},
+      {id:'g-main-goal',type:'pill',err:'e-main-goal'},
+      {id:'f-food',err:'e-food'},
+      {id:'g-train-freq',type:'pill',err:'e-train-freq'},
+      {id:'g-lifestyle',type:'pill',err:'e-lifestyle'},
+      {id:'f-sleep',err:'e-sleep'},{id:'f-stress',err:'e-stress'}
+    ]
+  },
+  vip: {
+    label:'VIP', info:'Повний біо-аудит — + Здоров\'я + Психологія',
+    shown:['health','psych'],
+    required:[
+      {id:'f-name',err:'e-name'},{id:'f-age',err:'e-age'},{id:'f-contacts',err:'e-contacts'},
+      {id:'f-weight',err:'e-weight'},{id:'f-height',err:'e-height'},
+      {id:'g-main-goal',type:'pill',err:'e-main-goal'},
+      {id:'f-food',err:'e-food'},
+      {id:'g-train-freq',type:'pill',err:'e-train-freq'},
+      {id:'g-lifestyle',type:'pill',err:'e-lifestyle'},
+      {id:'f-sleep',err:'e-sleep'},{id:'f-stress',err:'e-stress'}
+    ]
+  }
+};
+
+var DYNAMIC_SECTIONS = {health:'s-health', psych:'s-psych'};
+
+/* ═══ LAB DATA ═══ */
+var LABS_GENERAL = [
+  ['Загальний аналіз крові (ЗАК)','',''],
+  ['Гемоглобін','','Ч: 130–170 / Ж: 120–150 г/л'],
+  ['Лейкоцити','','4–9 × 10⁹/л'],
+  ['Тромбоцити','','150–400 × 10⁹/л'],
+  ['ШОЕ','','Ч: 2–15 / Ж: 2–20 мм/год'],
+  ['Глюкоза натще','','3.9–5.5 ммоль/л'],
+  ['HbA1c (глікований гемоглобін)','','<5.7%'],
+  ['Інсулін натще','','3–25 мкМО/мл'],
+  ['HOMA-IR (індекс резистентності)','','<2.7'],
+  ['Загальний холестерин','','<5.2 ммоль/л'],
+  ['ЛПНЩ (поганий холестерин)','','<3.0 ммоль/л'],
+  ['ЛПВЩ (хороший холестерин)','','Ч: >1.0 / Ж: >1.2 ммоль/л'],
+  ['Тригліцериди','','<1.7 ммоль/л'],
+  ['АЛТ','','Ч: 7–40 / Ж: 7–35 Од/л'],
+  ['АСТ','','10–40 Од/л'],
+  ['Загальний білірубін','','3.4–17.1 мкмоль/л'],
+  ['Сечовина','','2.5–8.3 ммоль/л'],
+  ['Креатинін','','Ч: 62–115 / Ж: 53–97 мкмоль/л'],
+  ['Феритин','','Ч: 30–400 / Ж: 13–150 мкг/л'],
+  ['Залізо сироватки','','10.7–32.2 мкмоль/л'],
+  ['Вітамін D (25-OH)','','30–80 нг/мл'],
+  ['Вітамін B12','','200–900 пг/мл'],
+  ['Фолієва кислота','','4.5–20 нг/мл'],
+  ['ТТГ (щитовидна залоза)','','0.27–4.2 мМО/мл'],
+  ['Т4 вільний','','0.93–1.7 нг/дл'],
+  ['С-реактивний білок (СРБ)','','<5 мг/л'],
+  ['Кортизол (ранковий 8:00)','','6.2–19.4 мкг/дл'],
+];
+
+var LABS_MALE = [
+  ['Тестостерон загальний','','8.64–29 нмоль/л'],
+  ['Тестостерон вільний','','4.81–22.42 пг/мл'],
+  ['ЛГ (лютеїнізуючий гормон)','','1.7–8.6 мМО/мл'],
+  ['ФСГ (фолікулостимулюючий)','','1.5–12.4 мМО/мл'],
+  ['ГЗСГ (глобулін зв\'язуючий)','','18.3–54.1 нмоль/л'],
+  ['Естрадіол E2','','11.3–43.2 пг/мл'],
+  ['Пролактин','','4.04–15.2 нг/мл'],
+  ['ДГТ (дигідротестостерон)','','250–990 пг/мл'],
+  ['ПСА загальний (>40р)','','<4.0 нг/мл'],
+  ['ІФР-1 (IGF-1 / СТГ-маркер)','','115–307 нг/мл'],
+  ['ДГЕА-С (надниркові)','','80–560 мкг/дл'],
+];
+
+var LABS_FEMALE = [
+  ['Естрадіол E2','','Фолікул. 12.5–166 / Лютеїн. 43.8–211 пг/мл'],
+  ['Прогестерон','','Фолікул. 0.31–1.52 / Лютеїн. 5.16–18.56 нг/мл'],
+  ['ЛГ','','Фолікул. 1.7–15 / Лютеїн. 0.5–16.9 мМО/мл'],
+  ['ФСГ','','Фолікул. 1.4–9.9 / Лютеїн. 0.8–8.8 мМО/мл'],
+  ['Тестостерон загальний','','0.31–3.78 нмоль/л'],
+  ['Пролактин','','4.8–23.3 нг/мл'],
+  ['ГЗСГ','','26.1–110 нмоль/л'],
+  ['ДГЕА-С','','35–430 мкг/дл'],
+  ['АМГ (антимюллерів гормон)','','1.0–10.6 нг/мл'],
+  ['Інсулін натще','','3–25 мкМО/мл'],
+  ['ІФР-1 (IGF-1)','','88–246 нг/мл'],
+  ['ТТГ (особливо важливо)','','0.27–4.2 мМО/мл'],
+];
+
+/* ═══ INIT LABS ═══ */
+function initLabs(){
+  LABS_GENERAL.forEach(function(l){ addLabRow('lab-rows-general', l[0], l[1], l[2]); });
+  LABS_MALE.forEach(function(l){    addLabRow('lab-rows-male',    l[0], l[1], l[2]); });
+  LABS_FEMALE.forEach(function(l){  addLabRow('lab-rows-female',  l[0], l[1], l[2]); });
+}
+
+var LAB_ROW_ID = 0;
+function addLabRow(containerId, name, result, norm){
+  LAB_ROW_ID++;
+  var id = 'lr-'+LAB_ROW_ID;
+  var row = document.createElement('div');
+  row.className = 'lab-row'; row.id = id;
+  row.innerHTML =
+    '<input placeholder="Показник" value="'+(name||'')+'">'+
+    '<input placeholder="—" value="'+(result||'')+'">'+
+    '<input placeholder="норма" value="'+(norm||'')+'">'+
+    '<button class="rm" type="button" onclick="document.getElementById(\''+id+'\').remove()">✕</button>';
+  document.getElementById(containerId).appendChild(row);
+}
+
+function addLabCustom(){
+  addLabRow('lab-rows-general','','','');
+}
+
+/* ═══ GENDER SWITCH ═══ */
+function setLabGender(g){
+  LAB_GENDER = g;
+  document.getElementById('lb-male').className   = 'lg-btn lg-m' + (g==='male'   ? ' on' : '');
+  document.getElementById('lb-female').className = 'lg-btn lg-f' + (g==='female' ? ' on' : '');
+  document.getElementById('lab-block-male').style.display   = g==='male'   ? '' : 'none';
+  document.getElementById('lab-block-female').style.display = g==='female' ? '' : 'none';
+}
+
+/* ═══ TIER ═══ */
+function setTier(t){
+  TIER = t;
+  document.querySelectorAll('.tp').forEach(function(b){b.classList.remove('on');});
+  document.querySelector('.tp.'+t).classList.add('on');
+  document.getElementById('t-info').textContent = TIER_CFG[t].info;
+  var shown = TIER_CFG[t].shown;
+  Object.keys(DYNAMIC_SECTIONS).forEach(function(key){
+    var el = document.getElementById(DYNAMIC_SECTIONS[key]);
+    if(!el) return;
+    var shouldShow = shown.indexOf(key) !== -1;
+    if(shouldShow){
+      el.style.display=''; el.offsetHeight;
+      el.classList.remove('sec-hidden'); el.classList.add('sec-visible');
+      el.classList.add('req');
+    } else {
+      el.classList.remove('sec-visible'); el.classList.add('sec-hidden');
+      el.classList.remove('req');
+      (function(elem){ setTimeout(function(){
+        if(elem.classList.contains('sec-hidden')) elem.style.display='none';
+      },460); })(el);
+    }
+  });
+  document.getElementById('prog').className = 'prog-fill pf-'+t;
+  document.getElementById('gen-btn').className = 'gen-btn gb-'+t;
+  updateProg();
+}
+
+/* ═══ ACCORDION ═══ */
+function tog(hd){
+  var bd=hd.nextElementSibling, ch=hd.querySelector('.chev');
+  if(bd.classList.contains('open')){
+    bd.classList.remove('open'); bd.style.display='none'; ch.classList.remove('up');
+  } else {
+    bd.classList.add('open'); bd.style.display='block'; ch.classList.add('up');
+  }
+}
+
+/* ═══ PILLS ═══ */
+function pick(el,gid){
+  document.querySelectorAll('#'+gid+' .pill').forEach(function(p){p.classList.remove('on');});
+  el.classList.add('on');
+  clearErr('e-'+gid.replace('g-',''));
+  updateProg();
+}
+function multi(el){ el.classList.toggle('on-multi'); updateProg(); }
+
+/* ═══ HELPERS ═══ */
+function v(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+function gr(gid){ var on=document.querySelector('#'+gid+' .pill.on'); return on?on.textContent.trim():''; }
+function gm(gid){ var a=[]; document.querySelectorAll('#'+gid+' .pill.on-multi').forEach(function(p){a.push(p.textContent.trim());}); return a.join(', '); }
+function clearErr(id){ var e=document.getElementById(id); if(e) e.style.display='none'; }
+
+/* ═══ PROGRESS ═══ */
+function updateProg(){
+  var cfg=TIER_CFG[TIER], total=cfg.required.length, filled=0;
+  cfg.required.forEach(function(r){
+    if(r.type==='pill'?!!gr(r.id):!!v(r.id)) filled++;
+  });
+  document.getElementById('prog').style.width=(total>0?Math.round(filled/total*100):0)+'%';
+}
+
+/* ═══ VALIDATE ═══ */
+function validate(){
+  var cfg=TIER_CFG[TIER], ok=true, first=null;
+  cfg.required.forEach(function(r){
+    var empty=r.type==='pill'?!gr(r.id):!v(r.id);
+    if(empty){
+      if(r.err){var el=document.getElementById(r.err); if(el) el.style.display='block';}
+      if(!first) first=document.getElementById(r.id);
+      ok=false;
+    }
+  });
+  if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+  return ok;
+}
+
+/* ═══ READ LAB ROWS ═══ */
+function readLabRows(containerId){
+  var lines=[];
+  document.querySelectorAll('#'+containerId+' .lab-row').forEach(function(row){
+    var inp=row.querySelectorAll('input');
+    var n=inp[0].value.trim(), r=inp[1].value.trim(), nm=inp[2].value.trim();
+    /* тільки якщо є результат АБО це кастомний рядок з назвою без норми */
+    if(r) lines.push('   • '+n+(r?': '+r:'')+(nm?' (норма: '+nm+')':''));
+  });
+  return lines;
+}
+
+/* ═══ GENERATE ═══ */
+function generate(){
+  document.querySelectorAll('.field-err').forEach(function(e){e.style.display='none';});
+  if(!validate()){
+    var msg=document.getElementById('val-msg');
+    msg.textContent='⚠️ Заповни обов\'язкові поля (★) — вони підсвічені вище';
+    msg.style.display='block';
+    setTimeout(function(){msg.style.display='none';},4500);
+    return;
+  }
+  document.getElementById('val-msg').style.display='none';
+
+  var cfg=TIER_CFG[TIER], shown=cfg.shown, L=[];
+
+  L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('⚡ REBOOT SYSTEM — АНКЕТА КЛІЄНТА');
+  L.push('📌 Рівень: '+cfg.label);
+  L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('');
+
+  /* БАЗОВІ */
+  L.push('👤 БАЗОВІ ДАНІ');
+  if(v('f-name'))     L.push('   Ім\'я: '+v('f-name'));
+  if(v('f-age'))      L.push('   Вік: '+v('f-age')+' р.');
+  if(v('f-gender'))   L.push('   Стать: '+v('f-gender'));
+  if(v('f-city'))     L.push('   Місто: '+v('f-city'));
+  if(v('f-contacts')) L.push('   Контакт: '+v('f-contacts'));
+
+  /* АНТРОПОМЕТРІЯ */
+  L.push(''); L.push('📏 АНТРОПОМЕТРІЯ');
+  if(v('f-weight')) L.push('   Вага: '+v('f-weight')+' кг');
+  if(v('f-height')) L.push('   Зріст: '+v('f-height')+' см');
+  if(v('f-weight')&&v('f-height'))
+    L.push('   ІМТ: '+(parseFloat(v('f-weight'))/Math.pow(parseFloat(v('f-height'))/100,2)).toFixed(1));
+  if(v('f-fat'))   L.push('   Жир: '+v('f-fat')+'%');
+  if(v('f-waist')) L.push('   Талія: '+v('f-waist')+' см');
+  var bt=gr('g-body-type'); if(bt) L.push('   Статура: '+bt);
+
+  /* ЦІЛІ */
+  L.push(''); L.push('🎯 ЦІЛІ');
+  var mg=gr('g-main-goal'); if(mg) L.push('   Ціль: '+mg);
+  if(v('f-timeline')) L.push('   Термін: '+v('f-timeline')+' міс.');
+  if(v('f-level'))    L.push('   Підготовка: '+v('f-level'));
+  if(v('f-tried'))    L.push('   Не спрацювало: '+v('f-tried'));
+  if(v('f-motivation')) L.push('   Мотивація: '+v('f-motivation'));
+
+  /* ХАРЧУВАННЯ */
+  L.push(''); L.push('🥩 ХАРЧУВАННЯ');
+  if(v('f-meals'))   L.push('   Прийомів: '+v('f-meals'));
+  if(v('f-diet'))    L.push('   Тип: '+v('f-diet'));
+  if(v('f-food'))    L.push('   Раціон: '+v('f-food'));
+  if(v('f-allergy')) L.push('   Алергії: '+v('f-allergy'));
+  if(v('f-supps'))   L.push('   Добавки: '+v('f-supps'));
+  var fa=gr('g-food-access'); if(fa) L.push('   Умови: '+fa);
+
+  /* ТРЕНІНГ */
+  L.push(''); L.push('🏋️ ТРЕНІНГ');
+  var tf=gr('g-train-freq'); if(tf) L.push('   Частота: '+tf);
+  var eq=gr('g-equip');      if(eq) L.push('   Обладнання: '+eq);
+  var ls=gr('g-lifestyle');  if(ls) L.push('   Спосіб життя: '+ls);
+  if(v('f-train'))    L.push('   Тренінг: '+v('f-train'));
+  if(v('f-injuries')) L.push('   Травми: '+v('f-injuries'));
+
+  /* ЗДОРОВ'Я */
+  if(shown.indexOf('health')!==-1){
+    L.push(''); L.push('❤️ ЗДОРОВ\'Я');
+    if(v('f-sleep'))      L.push('   Сон: '+v('f-sleep'));
+    if(v('f-stress'))     L.push('   Стрес: '+v('f-stress')+'/10');
+    var sym=gm('g-symptoms'); if(sym) L.push('   Скарги: '+sym);
+    if(v('f-conditions')) L.push('   Хронічні: '+v('f-conditions'));
+    if(v('f-meds'))       L.push('   Ліки: '+v('f-meds'));
+  }
+
+  /* ПСИХОЛОГІЯ */
+  if(shown.indexOf('psych')!==-1){
+    var pers=gr('g-personality'),fr=gr('g-food-rel'),cs=gr('g-coach');
+    if(pers||fr||cs||v('f-barriers')){
+      L.push(''); L.push('🧠 ПСИХОЛОГІЯ');
+      if(pers) L.push('   Тип: '+pers);
+      if(fr)   L.push('   Їжа: '+fr);
+      if(cs)   L.push('   Від коуча: '+cs);
+      if(v('f-barriers')) L.push('   Бар\'єри: '+v('f-barriers'));
+    }
+  }
+
+  /* АНАЛІЗИ */
+  var genRows  = readLabRows('lab-rows-general');
+  var specRows = LAB_GENDER==='male'
+    ? readLabRows('lab-rows-male')
+    : readLabRows('lab-rows-female');
+  var hasLabs  = genRows.length>0 || specRows.length>0;
+
+  if(hasLabs){
+    L.push(''); L.push('🔬 АНАЛІЗИ КРОВІ'+(v('f-lab-date')?' ('+v('f-lab-date')+')':''));
+    if(genRows.length>0){
+      L.push('   ─ Загальні:');
+      genRows.forEach(function(r){L.push(r);});
+    }
+    if(specRows.length>0){
+      L.push('   ─ '+(LAB_GENDER==='male'?'Чоловічі гормони:':'Жіночі гормони:'));
+      specRows.forEach(function(r){L.push(r);});
+    }
+  }
+
+  /* ДОДАТКОВО */
+  var pl=v('f-plan'),sd=v('f-start'),nt=v('f-notes'),fc=v('f-focus');
+  if(pl||sd||nt||fc){
+    L.push(''); L.push('📋 ДОДАТКОВА ІНФОРМАЦІЯ');
+    if(pl) L.push('   Програма: '+pl);
+    if(sd) L.push('   Дата старту: '+sd);
+    if(fc) L.push('   Фокус: '+fc);
+    if(nt) L.push('   Нотатки: '+nt);
+  }
+
+  L.push(''); L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('🌐 REBOOT SYSTEM  ✈️ @mzhukov_d_coach');
+
+  var text = L.join('\n');
+  document.getElementById('out-body').textContent = text;
+  document.getElementById('out-lbl').textContent  = cfg.label+' · '+(v('f-name')||'Клієнт');
+  var ow=document.getElementById('out-wrap');
+  ow.style.display='block';
+  ow.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ═══ COPY ═══ */
+function copyOut(){
+  var text = document.getElementById('out-body').textContent;
+  if(!text){ return; }
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(function(){
+      flashCopy();
+    }).catch(function(){
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text){
+  var ta=document.createElement('textarea');
+  ta.value=text; ta.style.cssText='position:fixed;top:-9999px;left:-9999px;opacity:0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); flashCopy(); } catch(e){}
+  document.body.removeChild(ta);
+}
+function flashCopy(){
+  var btn=document.getElementById('cpbtn');
+  btn.textContent='✅ Скопійовано!'; btn.classList.add('ok');
+  setTimeout(function(){btn.textContent='📋 Копіювати';btn.classList.remove('ok');},2500);
+}
+
+/* ═══ STRESS SCALE ═══ */
+(function(){
+  var sc=document.getElementById('stress-scale'); if(!sc) return;
+  for(var i=1;i<=10;i++){
+    var b=document.createElement('button');
+    b.className='sb'; b.type='button'; b.textContent=i;
+    b.onclick=(function(val,btn){return function(){
+      document.querySelectorAll('#stress-scale .sb').forEach(function(x){x.classList.remove('on');});
+      btn.classList.add('on');
+      document.getElementById('f-stress').value=val;
+      clearErr('e-stress'); updateProg();
+    };})(i,b);
+    sc.appendChild(b);
+  }
+})();
+
+/* ═══ LIVE PROGRESS ═══ */
+['f-name','f-age','f-weight','f-height','f-food','f-sleep','f-contacts'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el) el.addEventListener('input',function(){ clearErr('e-'+id.replace('f-','')); updateProg(); });
+});
+
+/* ═══ INIT ═══ */
+Object.keys(DYNAMIC_SECTIONS).forEach(function(key){
+  var el=document.getElementById(DYNAMIC_SECTIONS[key]);
+  if(el){ el.style.display='none'; el.classList.add('sec-hidden'); }
+});
+initLabs();
+setLabGender('male');
+setTier('flag');
+</script>
+</body>
+</html>
