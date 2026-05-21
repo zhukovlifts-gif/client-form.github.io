@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REBOOT SYSTEM — Клієнтська зона</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0F;--bg2:#111118;--bg3:#16161F;--bg4:#1C1C28;
+  --glass:rgba(255,255,255,0.032);--gb:rgba(255,255,255,0.08);--gb2:rgba(255,255,255,0.05);
+  --ac:#F5A623;--ac2:#FFB84D;--ac3:#FFD580;
+  --ag:rgba(245,166,35,0.12);--ag2:rgba(245,166,35,0.06);
+  --vip:#A78BFA;--vip2:#C4B5FD;
+  --red:#FF3B30;--green:#30D158;--blue:#0A84FF;
+  --w:#F4F4F8;--w8:rgba(244,244,248,0.88);--w7:rgba(244,244,248,0.75);
+  --w6:rgba(244,244,248,0.65);--w4:rgba(244,244,248,0.45);
+  --w2:rgba(244,244,248,0.22);--w1:rgba(244,244,248,0.09);
+  --fh:'Syne',sans-serif;--f:'Space Grotesk',sans-serif;--fm:'JetBrains Mono',monospace;
+  --r:14px;--r2:10px;--r3:8px;--r-pill:999px;
+  --shadow-card:0 2px 20px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05);
+  --shadow-btn:0 4px 20px rgba(245,166,35,0.35),0 0 0 1px rgba(245,166,35,0.3);
+}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{font-family:var(--f);background:var(--bg);color:var(--w);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:rgba(245,166,35,0.3);border-radius:3px}
+
+#static-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.025;
+}
+#static-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245,120,10,0.14) 0%, transparent 70%);}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;
+  background:rgba(7,7,9,0.85);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.nav-logo-mark{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,#F5A623 0%,#FF6B35 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fh);font-size:16px;font-weight:800;color:#000;
+  box-shadow:0 2px 12px rgba(245,166,35,0.4);flex-shrink:0;
+}
+.nav-logo-text{font-family:var(--fh);font-size:16px;font-weight:800;letter-spacing:.05em;color:var(--w);line-height:1;}
+.nav-logo-text em{color:var(--ac);font-style:normal}
+.nav-center{display:flex;align-items:center;gap:4px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-tab{
+  padding:7px 16px;border-radius:var(--r-pill);border:none;
+  font-family:var(--fh);font-size:12px;font-weight:800;letter-spacing:0.06em;
+  cursor:pointer;background:transparent;color:var(--w4);transition:all .2s;
+}
+.nav-tab:hover{color:var(--w6);}
+.nav-tab.active{background:rgba(255,255,255,0.07);color:var(--w8);border:1px solid rgba(255,255,255,0.1);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-icon-btn{
+  width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,0.08);background:var(--bg3);text-decoration:none;transition:all .2s;
+}
+.nav-icon-btn:hover{background:var(--bg4);border-color:rgba(255,255,255,0.15);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--ac) 0%,#FF8C42 100%);color:#000;border:none;
+  padding:9px 20px;border-radius:var(--r-pill);
+  font-family:var(--f);font-size:13px;font-weight:700;letter-spacing:.02em;
+  cursor:pointer;transition:all .25s;white-space:nowrap;
+  box-shadow:0 2px 16px rgba(245,166,35,0.3);text-decoration:none;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(245,166,35,0.45);filter:brightness(1.05);}
+
+/* ═══ PAGES ═══ */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ═══ WRAP ═══ */
+.wrap{max-width:780px;margin:0 auto;padding:0 20px 120px;position:relative;z-index:1;padding-top:58px;}
+
+/* ═══ HERO ═══ */
+.hero{padding:60px 0 40px;text-align:center;}
+.status-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--w4);background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);border-radius:var(--r-pill);padding:6px 16px;margin-bottom:24px;
+}
+.status-dot{width:5px;height:5px;border-radius:50%;background:var(--ac);box-shadow:0 0 6px var(--ac);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-title{font-family:var(--fh);font-size:clamp(44px,9vw,72px);font-weight:800;letter-spacing:.02em;line-height:.95;color:var(--w);margin-bottom:16px;}
+.hero-title em{color:var(--ac);font-style:normal;}
+.hero-sub{font-size:14px;color:var(--w4);max-width:420px;margin:0 auto;line-height:1.7;font-weight:400;}
+
+/* ═══ TIER ═══ */
+.tier-wrap{margin-bottom:24px;text-align:center;}
+.tier-ey{font-family:var(--fm);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--w4);margin-bottom:12px;font-weight:500;}
+.tier-pills{display:inline-flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r);padding:4px;gap:4px;}
+.tp{padding:9px 26px;border-radius:var(--r2);border:1px solid transparent;font-family:var(--fh);font-size:13px;font-weight:800;letter-spacing:0.08em;cursor:pointer;background:transparent;color:var(--w4);transition:all 0.2s;}
+.tp:hover{color:var(--w6);}
+.tp.std.on{background:rgba(180,180,190,0.08);color:#c0bfc8;border-color:rgba(180,180,190,0.2);}
+.tp.flag.on{background:var(--ag);color:var(--ac);border-color:rgba(245,166,35,0.3);}
+.tp.vip.on{background:rgba(167,139,250,0.1);color:var(--vip);border-color:rgba(167,139,250,0.25);}
+.tier-info{margin-top:10px;font-size:12px;color:var(--w4);min-height:18px;font-family:var(--fm);}
+
+/* ═══ PROGRESS ═══ */
+.prog-wrap{margin-bottom:28px;}
+.prog-bar{height:1px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:visible;}
+.prog-fill{height:100%;border-radius:2px;transition:width 0.4s cubic-bezier(.22,1,.36,1);width:0%;position:relative;}
+.prog-fill::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:inherit;box-shadow:0 0 8px var(--ac);}
+.pf-std{background:rgba(180,180,190,0.7);}
+.pf-flag{background:linear-gradient(90deg,var(--ac),var(--ac2));}
+.pf-vip{background:linear-gradient(90deg,var(--vip),var(--vip2));}
+
+/* ═══ CARDS ═══ */
+.card{
+  background:var(--bg2);border:1px solid rgba(255,255,255,0.06);
+  border-radius:var(--r);margin-bottom:8px;overflow:hidden;
+  transition:border-color 0.2s,opacity 0.3s,box-shadow 0.2s;
+  position:relative;box-shadow:var(--shadow-card);
+  animation:cardIn 0.35s cubic-bezier(.22,1,.36,1) both;
+}
+.card:nth-child(1){animation-delay:.04s}.card:nth-child(2){animation-delay:.08s}
+.card:nth-child(3){animation-delay:.12s}.card:nth-child(4){animation-delay:.16s}
+.card:nth-child(5){animation-delay:.20s}.card:nth-child(6){animation-delay:.24s}
+.card:nth-child(7){animation-delay:.28s}.card:nth-child(8){animation-delay:.32s}
+.card:nth-child(9){animation-delay:.36s}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.card:hover{border-color:rgba(255,255,255,0.1);}
+.card.req{border-color:rgba(245,166,35,0.18);}
+.card.req::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--ac),#FF6B35);border-radius:2px 0 0 2px;}
+.card.locked{opacity:0.22;pointer-events:none;}
+.card-hd{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:background 0.15s;}
+.card-hd:hover{background:rgba(255,255,255,0.02);}
+.card-hd-l{display:flex;align-items:center;gap:12px;}
+.card-ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.ic1{background:rgba(10,132,255,0.12);}.ic2{background:rgba(245,166,35,0.12);}
+.ic3{background:rgba(48,209,88,0.1);}.ic4{background:rgba(255,140,60,0.1);}
+.ic5{background:rgba(167,139,250,0.1);}.ic6{background:rgba(255,59,48,0.1);}
+.ic7{background:rgba(90,200,250,0.1);}.ic8{background:rgba(255,214,10,0.1);}
+.ic9{background:rgba(48,209,88,0.1);}
+.card-name{font-size:14px;font-weight:600;color:var(--w8);letter-spacing:.01em;}
+.card-sub{font-size:11px;color:var(--w4);margin-top:1px;font-family:var(--fm);}
+.card-hd-r{display:flex;align-items:center;gap:8px;}
+.req-badge{
+  font-family:var(--fm);font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;background:var(--ag);color:var(--ac);border:1px solid rgba(245,166,35,0.2);display:none;
+}
+.card.req .req-badge{display:inline-block;}
+.chev{font-size:9px;color:var(--w4);transition:transform 0.22s;}
+.chev.up{transform:rotate(180deg);}
+
+/* ═══ CARD BODY ═══ */
+.card-bd{padding:0 20px 20px;display:none;}
+.card-bd.open{display:block;}
+
+/* ═══ FORM GRID ═══ */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.f{display:flex;flex-direction:column;gap:6px;}
+.f2{grid-column:1/-1;}
+label{font-size:11px;color:var(--w4);font-weight:500;font-family:var(--fm);letter-spacing:0.04em;}
+.rs{color:var(--ac);margin-left:2px;font-size:10px;}
+input,select,textarea{
+  background:var(--bg3);border:1px solid rgba(255,255,255,0.07);
+  border-radius:var(--r2);padding:10px 13px;
+  font-size:13px;color:var(--w);font-family:var(--f);font-weight:400;width:100%;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(245,166,35,0.45);box-shadow:0 0 0 3px rgba(245,166,35,0.08);}
+input::placeholder,textarea::placeholder{color:var(--w2);}
+textarea{resize:vertical;min-height:70px;line-height:1.6;}
+select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 5 5-5z' fill='rgba(244,244,248,0.3)'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;padding-right:30px;cursor:pointer;
+}
+select option{background:var(--bg3);}
+
+/* ═══ PILLS ═══ */
+.pills{display:flex;flex-wrap:wrap;gap:6px;}
+.pill{padding:7px 13px;border-radius:var(--r2);border:1px solid rgba(255,255,255,0.07);background:var(--bg3);font-size:12px;color:var(--w4);font-weight:500;cursor:pointer;transition:all 0.14s;font-family:var(--f);}
+.pill:hover{border-color:rgba(245,166,35,0.35);color:var(--w7);background:var(--bg4);}
+.pill.on{border-color:rgba(245,166,35,0.5);color:var(--ac);background:var(--ag);}
+.pill.on-multi{border-color:rgba(245,166,35,0.5);color:var(--ac);background:var(--ag);}
+
+/* ═══ SCALE ═══ */
+.scale{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px;}
+.sb{width:34px;height:34px;border-radius:var(--r2);border:1px solid rgba(255,255,255,0.07);background:var(--bg3);color:var(--w4);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--f);transition:all 0.14s;display:flex;align-items:center;justify-content:center;}
+.sb:hover{border-color:rgba(245,166,35,0.4);color:var(--w7);}
+.sb.on{border-color:rgba(245,166,35,0.5);background:var(--ag);color:var(--ac);}
+
+/* ═══ VALIDATION ═══ */
+.field-err{font-size:11px;color:var(--red);margin-top:3px;display:none;font-family:var(--fm);}
+input.err,select.err,textarea.err{border-color:rgba(255,59,48,0.4);}
+
+/* ═══ GENERATE BTN ═══ */
+.gen-wrap{text-align:center;margin:36px 0 20px;}
+.gen-btn{font-family:var(--fh);font-size:16px;font-weight:800;letter-spacing:0.1em;padding:16px 52px;border-radius:var(--r-pill);border:none;cursor:pointer;transition:all 0.22s;position:relative;overflow:hidden;}
+.gen-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);pointer-events:none;}
+.gen-btn:hover{transform:translateY(-2px);}
+.gen-btn:active{transform:translateY(0);}
+.gb-std{background:linear-gradient(135deg,#8a8a96,#b0b0be);color:#0A0A0F;box-shadow:0 4px 20px rgba(180,180,190,0.25);}
+.gb-flag{background:linear-gradient(135deg,var(--ac) 0%,#FF8C42 100%);color:#000;box-shadow:var(--shadow-btn);}
+.gb-flag:hover{box-shadow:0 8px 30px rgba(245,166,35,0.5);}
+.gb-vip{background:linear-gradient(135deg,var(--vip),var(--vip2));color:#0A0A0F;box-shadow:0 4px 20px rgba(167,139,250,0.3);}
+.val-msg{font-size:12px;color:var(--red);margin-top:10px;display:none;font-family:var(--fm);}
+
+/* ═══ OUTPUT ═══ */
+.out-wrap{display:none;background:var(--bg2);border:1px solid rgba(245,166,35,0.2);border-radius:var(--r);overflow:hidden;margin-bottom:32px;box-shadow:0 0 40px rgba(245,166,35,0.06);}
+.out-hd{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;background:rgba(245,166,35,0.04);}
+.out-lbl{font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ac);}
+.out-acts{display:flex;gap:6px;}
+.cpbtn,.clbtn{padding:7px 15px;border-radius:var(--r2);border:1px solid rgba(255,255,255,0.08);background:transparent;color:var(--w4);font-size:11px;font-family:var(--f);font-weight:500;cursor:pointer;transition:all 0.15s;}
+.cpbtn:hover{border-color:rgba(245,166,35,0.4);color:var(--ac);background:var(--ag);}
+.cpbtn.ok{border-color:rgba(48,209,88,0.4);color:var(--green);background:rgba(48,209,88,0.08);}
+.clbtn:hover{color:var(--red);border-color:rgba(255,59,48,0.3);}
+.out-body{padding:20px;font-size:12px;line-height:1.9;color:var(--w7);white-space:pre-wrap;word-break:break-word;font-family:var(--fm);max-height:540px;overflow-y:auto;}
+.out-body::-webkit-scrollbar{width:3px;}
+.out-body::-webkit-scrollbar-thumb{background:var(--ag);border-radius:3px;}
+
+/* ═══ FOOTER ═══ */
+.footer{text-align:center;padding:32px 0 20px;border-top:1px solid rgba(255,255,255,0.05);margin-top:20px;}
+.footer-brand{font-family:var(--fh);font-size:12px;font-weight:800;letter-spacing:0.25em;color:var(--w2);}
+.footer-brand em{color:var(--ac);font-style:normal;}
+
+/* ═══ DIVIDER ═══ */
+.sec-divider{display:flex;align-items:center;gap:12px;margin:28px 0 20px;}
+.sec-divider-line{flex:1;height:1px;background:rgba(255,255,255,0.05);}
+.sec-divider-label{font-family:var(--fm);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--w4);padding:4px 10px;border:1px solid rgba(255,255,255,0.06);border-radius:var(--r-pill);background:var(--bg2);white-space:nowrap;}
+
+/* ═══ SECTION REVEAL ═══ */
+.card[data-section]{overflow:hidden;transition:max-height 0.45s cubic-bezier(.22,1,.36,1), opacity 0.35s ease, margin-bottom 0.35s ease;}
+.card[data-section].sec-hidden{max-height:0 !important; opacity:0; margin-bottom:0; pointer-events:none;}
+.card[data-section].sec-visible{max-height:1200px; opacity:1; margin-bottom:8px;}
+
+/* ═══ LAB STYLES ═══ */
+.lab-hd{display:grid;grid-template-columns:2.4fr 0.9fr 1.5fr 32px;gap:6px;margin-bottom:6px;}
+.lh{font-size:10px;color:var(--w4);padding:0 2px;font-family:var(--fm);letter-spacing:0.04em;}
+.lab-row{display:grid;grid-template-columns:2.4fr 0.9fr 1.5fr 32px;gap:6px;margin-bottom:6px;align-items:center;}
+.lab-row input{font-size:12px;padding:8px 10px;}
+.rm{width:32px;height:36px;border-radius:var(--r2);border:1px solid rgba(255,255,255,0.07);background:transparent;color:var(--w4);cursor:pointer;font-size:12px;transition:all 0.14s;}
+.rm:hover{border-color:rgba(255,59,48,0.4);color:var(--red);}
+.add-lab{width:100%;padding:9px;border:1px dashed rgba(245,166,35,0.2);border-radius:var(--r2);background:transparent;color:var(--w4);font-size:12px;cursor:pointer;font-family:var(--f);font-weight:500;transition:all 0.14s;margin-top:5px;}
+.add-lab:hover{border-color:rgba(245,166,35,0.45);color:var(--ac);background:var(--ag);}
+.lab-section-label{font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--w4);margin:12px 0 8px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.lab-gender-pick{margin:18px 0 14px;padding:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r2);}
+.lab-gender-label{font-family:var(--fm);font-size:10px;color:var(--w4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;}
+.lg-btn{padding:9px 22px;border-radius:var(--r-pill);border:1px solid rgba(255,255,255,0.1);background:transparent;font-family:var(--fh);font-size:13px;font-weight:800;letter-spacing:0.06em;cursor:pointer;transition:all 0.18s;color:var(--w4);}
+.lg-btn:hover{border-color:rgba(255,255,255,0.22);color:var(--w6);}
+.lg-m.on{background:rgba(10,132,255,0.15);border-color:rgba(10,132,255,0.4);color:#60c0ff;}
+.lg-f.on{background:rgba(255,105,180,0.12);border-color:rgba(255,105,180,0.4);color:#ffb3d9;}
+.tier-badge{font-family:var(--fm);font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:6px;border:1px solid;}
+.tier-badge-flag{background:var(--ag);color:var(--ac);border-color:rgba(245,166,35,0.25);}
+.tier-badge-vip{background:rgba(167,139,250,0.1);color:var(--vip);border-color:rgba(167,139,250,0.25);}
+
+/* ════════════════════════════════════════
+   HOME PAGE STYLES
+════════════════════════════════════════ */
+.home-hero{padding:72px 0 48px;text-align:center;}
+.home-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--w4);background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);border-radius:var(--r-pill);padding:6px 16px;margin-bottom:28px;
+}
+.home-title{font-family:var(--fh);font-size:clamp(48px,10vw,80px);font-weight:800;letter-spacing:.02em;line-height:.92;color:var(--w);margin-bottom:20px;}
+.home-title em{color:var(--ac);font-style:normal;}
+.home-desc{font-size:15px;color:var(--w6);max-width:480px;margin:0 auto 36px;line-height:1.75;}
+
+/* System overview */
+.sys-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:48px 0;}
+.sys-card{
+  background:var(--bg2);border:1px solid rgba(255,255,255,0.06);
+  border-radius:var(--r);padding:24px 20px;
+  position:relative;overflow:hidden;
+}
+.sys-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--line-color,rgba(255,255,255,0.1));}
+.sys-card.c-form{--line-color:rgba(245,166,35,0.6);}
+.sys-card.c-diary{--line-color:rgba(48,209,88,0.6);}
+.sys-card.c-week{--line-color:rgba(10,132,255,0.6);}
+.sys-card-icon{font-size:28px;margin-bottom:14px;}
+.sys-card-title{font-family:var(--fh);font-size:15px;font-weight:800;letter-spacing:0.06em;color:var(--w8);margin-bottom:6px;}
+.sys-card-sub{font-size:12px;color:var(--w4);line-height:1.6;margin-bottom:16px;}
+.sys-card-freq{
+  font-family:var(--fm);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;
+  padding:4px 10px;border-radius:var(--r-pill);
+  display:inline-flex;align-items:center;gap:5px;
+}
+.freq-once{background:var(--ag);color:var(--ac);border:1px solid rgba(245,166,35,0.2);}
+.freq-daily{background:rgba(48,209,88,0.1);color:var(--green);border:1px solid rgba(48,209,88,0.2);}
+.freq-weekly{background:rgba(10,132,255,0.1);color:#60aaff;border:1px solid rgba(10,132,255,0.2);}
+.sys-card-btn{
+  display:block;width:100%;margin-top:16px;
+  padding:10px;border-radius:var(--r2);
+  font-family:var(--fh);font-size:12px;font-weight:800;letter-spacing:0.08em;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);
+  color:var(--w6);transition:all 0.2s;text-align:center;
+}
+.sys-card-btn:hover{border-color:rgba(245,166,35,0.4);color:var(--ac);background:var(--ag);}
+
+/* About section */
+.about-section{margin:0 0 48px;}
+.section-label{font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--w4);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.section-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.about-item{
+  background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);padding:20px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.about-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.about-item-title{font-size:13px;font-weight:600;color:var(--w8);margin-bottom:4px;}
+.about-item-text{font-size:12px;color:var(--w4);line-height:1.6;}
+
+/* When to fill table */
+.when-table{
+  background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--r);overflow:hidden;margin-bottom:48px;
+}
+.when-row{
+  display:grid;grid-template-columns:180px 1fr auto;
+  padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.04);
+  align-items:center;gap:16px;transition:background 0.15s;
+}
+.when-row:last-child{border-bottom:none;}
+.when-row:hover{background:rgba(255,255,255,0.02);}
+.when-row-hd{background:rgba(255,255,255,0.03);}
+.when-row-hd .when-name,.when-row-hd .when-desc,.when-row-hd .when-freq{font-family:var(--fm);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--w4);}
+.when-name{font-size:13px;font-weight:600;color:var(--w8);}
+.when-desc{font-size:12px;color:var(--w4);line-height:1.5;}
+.when-btn{
+  padding:7px 16px;border-radius:var(--r-pill);
+  font-family:var(--fh);font-size:11px;font-weight:800;letter-spacing:0.06em;
+  cursor:pointer;border:none;transition:all 0.2s;white-space:nowrap;
+}
+.wb-form{background:var(--ag);color:var(--ac);border:1px solid rgba(245,166,35,0.3);}
+.wb-diary{background:rgba(48,209,88,0.1);color:var(--green);border:1px solid rgba(48,209,88,0.25);}
+.wb-week{background:rgba(10,132,255,0.1);color:#60aaff;border:1px solid rgba(10,132,255,0.25);}
+.wb-form:hover,.wb-diary:hover,.wb-week:hover{transform:translateY(-1px);filter:brightness(1.1);}
+
+/* ════════════════════════════════════════
+   HINT BOX (visual tips)
+════════════════════════════════════════ */
+.hint-box{
+  background:rgba(245,166,35,0.05);
+  border:1px solid rgba(245,166,35,0.15);
+  border-radius:var(--r2);
+  padding:12px 14px;
+  margin-bottom:10px;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.hint-box.hint-green{background:rgba(48,209,88,0.05);border-color:rgba(48,209,88,0.15);}
+.hint-box.hint-blue{background:rgba(10,132,255,0.05);border-color:rgba(10,132,255,0.15);}
+.hint-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.hint-text{font-size:11px;color:var(--w6);line-height:1.6;}
+.hint-text strong{color:var(--w8);font-weight:600;}
+
+/* ════════════════════════════════════════
+   DIARY / WEEKLY shared header
+════════════════════════════════════════ */
+.page-hero{padding:52px 0 32px;text-align:center;}
+.page-title{font-family:var(--fh);font-size:clamp(36px,7vw,58px);font-weight:800;letter-spacing:.02em;line-height:.95;color:var(--w);margin-bottom:12px;}
+.page-title em{color:var(--ac);font-style:normal;}
+.page-sub{font-size:13px;color:var(--w4);max-width:400px;margin:0 auto;line-height:1.7;}
+
+/* ════════════════════════════════════════
+   MOBILE NAV BOTTOM
+════════════════════════════════════════ */
+.mob-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:999;
+  background:rgba(10,10,15,0.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:10px 8px 16px;
+  justify-content:space-around;
+}
+.mob-tab{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  font-family:var(--fh);font-size:9px;font-weight:800;letter-spacing:0.08em;
+  color:var(--w4);background:none;border:none;cursor:pointer;padding:6px 14px;
+  border-radius:var(--r2);transition:all 0.2s;min-width:60px;
+}
+.mob-tab .mob-icon{font-size:18px;line-height:1;}
+.mob-tab.active{color:var(--ac);}
+.mob-tab.active .mob-icon{filter:drop-shadow(0 0 4px rgba(245,166,35,0.6));}
+
+/* ════════════════════════════════════════
+   DIARY DATE STRIP
+════════════════════════════════════════ */
+.date-strip{
+  display:flex;align-items:center;gap:12px;
+  background:var(--bg2);border:1px solid rgba(255,255,255,0.06);
+  border-radius:var(--r);padding:16px 20px;margin-bottom:16px;
+}
+.date-strip-icon{font-size:20px;}
+.date-strip-label{font-family:var(--fm);font-size:10px;color:var(--w4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;}
+.date-strip input[type="date"]{
+  background:transparent;border:none;padding:0;font-size:14px;font-weight:600;color:var(--w8);
+  font-family:var(--fh);letter-spacing:0.04em;cursor:pointer;width:auto;
+}
+.date-strip input[type="date"]:focus{outline:none;box-shadow:none;border:none;}
+
+/* ════════════════════════════════════════
+   BURGER + DROPDOWN NAV (mobile)
+════════════════════════════════════════ */
+.nav-burger{
+  display:none;
+  flex-direction:column;justify-content:center;align-items:center;gap:5px;
+  width:38px;height:38px;border-radius:10px;
+  border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);
+  cursor:pointer;padding:0;transition:all 0.2s;
+}
+.nav-burger:hover{border-color:rgba(245,166,35,0.4);background:var(--ag);}
+.nav-burger span{
+  display:block;width:16px;height:1.5px;background:var(--w6);border-radius:2px;
+  transition:all 0.25s cubic-bezier(.22,1,.36,1);transform-origin:center;
+}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);background:var(--ac);}
+.nav-burger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);background:var(--ac);}
+
+.nav-dropdown{
+  display:none;
+  position:fixed;top:58px;left:0;right:0;z-index:999;
+  background:rgba(7,7,9,0.97);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  transform:translateY(-8px);opacity:0;
+  transition:transform 0.28s cubic-bezier(.22,1,.36,1), opacity 0.22s ease;
+  pointer-events:none;
+}
+.nav-dropdown.open{
+  transform:translateY(0);opacity:1;pointer-events:all;
+}
+.nav-dd-items{padding:8px 16px 4px;}
+.nav-dd-item{
+  display:flex;align-items:center;gap:12px;width:100%;
+  padding:14px 12px;border-radius:var(--r2);border:none;
+  background:transparent;color:var(--w6);
+  font-family:var(--fh);font-size:14px;font-weight:800;letter-spacing:0.08em;
+  cursor:pointer;transition:all 0.15s;text-align:left;
+}
+.nav-dd-item:hover{background:rgba(255,255,255,0.04);color:var(--w8);}
+.nav-dd-item.active{color:var(--ac);}
+.nav-dd-item.active .nav-dd-icon{filter:drop-shadow(0 0 4px rgba(245,166,35,0.5));}
+.nav-dd-icon{font-size:18px;width:24px;text-align:center;flex-shrink:0;}
+.nav-dd-sep{height:1px;background:rgba(255,255,255,0.06);margin:8px 16px;}
+.nav-dd-footer{
+  padding:12px 16px 20px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.nav-dd-social{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:var(--r-pill);
+  border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);
+  font-size:12px;font-weight:600;color:var(--w4);text-decoration:none;
+  transition:all 0.15s;font-family:var(--f);
+}
+.nav-dd-social:hover{border-color:rgba(255,255,255,0.18);color:var(--w7);}
+.nav-dd-cta{
+  margin-left:auto;
+  background:linear-gradient(135deg,var(--ac),#FF8C42);color:#000;border:none;
+  padding:9px 18px;border-radius:var(--r-pill);
+  font-family:var(--f);font-size:13px;font-weight:700;
+  cursor:pointer;text-decoration:none;
+  box-shadow:0 2px 12px rgba(245,166,35,0.3);
+}
+
+/* Show burger only on mobile */
+@media(max-width:640px){
+  .nav-burger{display:flex;}
+  .nav-icon-desktop{display:none !important;}
+  .nav-cta-desktop{display:none !important;}
+  .nav-dropdown{display:block;}/* always in DOM, visibility via .open class */
+}
+
+/* ════════════════════════════════════════
+   PAGE NAV (← →)
+════════════════════════════════════════ */
+.page-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:32px 0 0;padding:20px 0;
+  border-top:1px solid rgba(255,255,255,0.06);
+  gap:12px;flex-wrap:wrap;
+}
+.page-nav-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:var(--r-pill);
+  font-family:var(--fh);font-size:13px;font-weight:800;letter-spacing:0.06em;
+  cursor:pointer;border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.04);color:var(--w6);
+  transition:all 0.2s;text-decoration:none;
+}
+.page-nav-btn:hover{border-color:rgba(245,166,35,0.4);color:var(--ac);background:var(--ag);}
+.page-nav-btn.primary{
+  background:linear-gradient(135deg,var(--ac),#FF8C42);
+  color:#000;border-color:transparent;
+  box-shadow:0 2px 16px rgba(245,166,35,0.3);
+}
+.page-nav-btn.primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(245,166,35,0.45);color:#000;}
+.page-nav-btn.ghost{opacity:0;pointer-events:none;}/* placeholder for alignment */
+
+/* ════════════════════════════════════════
+   RESPONSIVE — MOBILE FIRST
+════════════════════════════════════════ */
+
+/* Tablet: 641–900px */
+@media(max-width:900px){
+  .wrap{padding:0 16px 120px;padding-top:58px;}
+  .sys-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .home-title{font-size:clamp(40px,8vw,68px);}
+}
+
+/* Mobile: ≤640px */
+@media(max-width:640px){
+  /* Layout */
+  .wrap{padding:0 14px 90px;padding-top:58px;}
+  .nav-center{display:none;}
+  .mob-nav{display:flex;}
+  nav{padding:0 14px;}
+  nav .nav-cta{padding:8px 14px;font-size:12px;}
+
+  /* Hero */
+  .home-hero{padding:52px 0 32px;}
+  .home-title{font-size:clamp(38px,10vw,56px);line-height:.9;}
+  .home-desc{font-size:13px;margin-bottom:28px;}
+  .home-kicker{font-size:9px;padding:5px 12px;}
+  .hero{padding:48px 0 28px;}
+  .hero-title{font-size:clamp(34px,10vw,52px);}
+  .hero-sub{font-size:13px;}
+  .status-badge{font-size:9px;padding:5px 12px;}
+  .page-hero{padding:44px 0 24px;}
+  .page-title{font-size:clamp(32px,10vw,50px);}
+  .page-sub{font-size:12px;}
+
+  /* Grid → single column */
+  .sys-grid{grid-template-columns:1fr;gap:10px;}
+  .about-grid{grid-template-columns:1fr;}
+  .fg{grid-template-columns:1fr;}
+  .f2{grid-column:1;}
+
+  /* Cards */
+  .sys-card{padding:18px 16px;}
+  .card-hd{padding:14px 16px;}
+  .card-bd{padding:0 16px 16px;}
+  .card-name{font-size:13px;}
+
+  /* Tier pills — stack нормально */
+  .tier-pills{flex-wrap:wrap;justify-content:center;padding:3px;gap:3px;}
+  .tp{padding:8px 18px;font-size:12px;}
+  .tier-wrap{margin-bottom:18px;}
+
+  /* Scales — менший розмір */
+  .scale{gap:3px;}
+  .sb{width:28px;height:28px;font-size:11px;border-radius:7px;}
+
+  /* When table */
+  .when-row{grid-template-columns:1fr;gap:8px;padding:14px 16px;}
+  .when-row-hd{display:none;}
+  .when-name{font-size:13px;}
+  .when-desc{font-size:11px;}
+  .when-btn{width:100%;text-align:center;padding:10px;}
+
+  /* Date strip */
+  .date-strip{padding:12px 14px;gap:10px;}
+  .date-strip input[type="date"]{font-size:13px;}
+
+  /* Gen button */
+  .gen-btn{padding:14px 28px;font-size:14px;width:100%;}
+  .gen-wrap{margin:24px 0 16px;}
+
+  /* Lab rows — hide norm column */
+  .lab-hd,.lab-row{grid-template-columns:1.8fr 0.7fr 32px;}
+  .lab-hd .lh:nth-child(3),.lab-row input:nth-child(3){display:none;}
+
+  /* Output */
+  .out-body{font-size:11px;padding:14px;}
+  .out-hd{padding:12px 14px;flex-wrap:wrap;gap:8px;}
+
+  /* Page nav */
+  .page-nav{margin:20px 0 0;padding:16px 0;}
+  .page-nav-btn{font-size:12px;padding:10px 18px;}
+
+  /* Section divider */
+  .sec-divider{margin:20px 0 14px;}
+  .sec-divider-label{font-size:8px;padding:3px 8px;}
+
+  /* Hint box */
+  .hint-box{padding:10px 12px;}
+  .hint-text{font-size:11px;}
+
+  /* About items */
+  .about-item{padding:14px;}
+  .about-icon{font-size:18px;}
+
+  /* Footer */
+  .footer{padding:24px 0 16px;}
+
+  /* Weekly date strip */
+  .date-strip>div{flex-wrap:wrap;}
+}
+
+/* Very small: ≤380px */
+@media(max-width:380px){
+  .home-title{font-size:34px;}
+  .hero-title,.page-title{font-size:30px;}
+  .tp{padding:7px 12px;font-size:11px;}
+  .sb{width:25px;height:25px;font-size:10px;}
+  .sys-card-title{font-size:14px;}
+  .nav-logo-text{font-size:14px;}
+}
+</style>
+</head>
+<body>
+<div id="static-bg"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#" class="nav-logo" onclick="showPage('home');return false;">
+    <div class="nav-logo-mark">R</div>
+    <div class="nav-logo-text">REBOOT <em>SYSTEM</em></div>
+  </a>
+  <div class="nav-center">
+    <button class="nav-tab active" id="nt-home"   onclick="showPage('home')">ГОЛОВНА</button>
+    <button class="nav-tab"        id="nt-form"   onclick="showPage('form')">АНКЕТА</button>
+    <button class="nav-tab"        id="nt-diary"  onclick="showPage('diary')">ЩОДЕННИК</button>
+    <button class="nav-tab"        id="nt-weekly" onclick="showPage('weekly')">ТИЖНЕВИЙ ЗВІТ</button>
+  </div>
+  <div class="nav-right">
+    <a href="https://t.me/mzhukov_d_coach" target="_blank" class="nav-icon-btn nav-icon-desktop" style="border-color:rgba(41,182,246,0.2)">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.48.7-.96.44l-2.64-1.96-1.28 1.24c-.14.14-.26.26-.52.26l.18-2.6 4.72-4.26c.2-.18-.04-.28-.32-.1L7.32 14.4l-2.56-.8c-.56-.18-.58-.56.12-.82l10.02-3.86c.46-.18.86.1.74.88z" fill="#29b6f6"/></svg>
+    </a>
+    <a href="https://www.instagram.com/mzhukovd.rebootsystem/" target="_blank" class="nav-icon-btn nav-icon-desktop" style="border-color:rgba(225,48,108,0.2)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="#e1306c"/></svg>
+    </a>
+    <a href="https://zhukovlifts-gif.github.io/mzhukovd-rebootsystem.github.io/" target="_blank" class="nav-cta nav-cta-desktop">Біо-Аудит →</a>
+    <!-- BURGER -->
+    <button class="nav-burger" id="nav-burger" onclick="toggleMenu()" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE DROPDOWN MENU -->
+<div class="nav-dropdown" id="nav-dropdown">
+  <div class="nav-dd-items">
+    <button class="nav-dd-item active" id="ndd-home" onclick="showPage('home');closeMenu()">
+      <span class="nav-dd-icon">🏠</span><span>ГОЛОВНА</span>
+    </button>
+    <button class="nav-dd-item" id="ndd-form" onclick="showPage('form');closeMenu()">
+      <span class="nav-dd-icon">📋</span><span>АНКЕТА</span>
+    </button>
+    <button class="nav-dd-item" id="ndd-diary" onclick="showPage('diary');closeMenu()">
+      <span class="nav-dd-icon">📅</span><span>ЩОДЕННИК</span>
+    </button>
+    <button class="nav-dd-item" id="ndd-weekly" onclick="showPage('weekly');closeMenu()">
+      <span class="nav-dd-icon">📊</span><span>ТИЖНЕВИЙ ЗВІТ</span>
+    </button>
+  </div>
+  <div class="nav-dd-footer">
+    <a href="https://t.me/mzhukov_d_coach" target="_blank" class="nav-dd-social">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8l-1.68 7.92c-.12.56-.48.7-.96.44l-2.64-1.96-1.28 1.24c-.14.14-.26.26-.52.26l.18-2.6 4.72-4.26c.2-.18-.04-.28-.32-.1L7.32 14.4l-2.56-.8c-.56-.18-.58-.56.12-.82l10.02-3.86c.46-.18.86.1.74.88z" fill="#29b6f6"/></svg>
+      Telegram
+    </a>
+    <a href="https://www.instagram.com/mzhukovd.rebootsystem/" target="_blank" class="nav-dd-social">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#e1306c" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="#e1306c" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="#e1306c"/></svg>
+      Instagram
+    </a>
+    <a href="https://zhukovlifts-gif.github.io/mzhukovd-rebootsystem.github.io/" target="_blank" class="nav-dd-cta">Біо-Аудит →</a>
+  </div>
+</div>
+
+<!-- ═══ MOBILE BOTTOM NAV ═══ -->
+<div class="mob-nav" id="mob-nav">
+  <button class="mob-tab active" id="mnt-home" onclick="showPage('home')"><span class="mob-icon">🏠</span>ГОЛОВНА</button>
+  <button class="mob-tab" id="mnt-form" onclick="showPage('form')"><span class="mob-icon">📋</span>АНКЕТА</button>
+  <button class="mob-tab" id="mnt-diary" onclick="showPage('diary')"><span class="mob-icon">📅</span>ЩОДЕННИК</button>
+  <button class="mob-tab" id="mnt-weekly" onclick="showPage('weekly')"><span class="mob-icon">📊</span>ЗВІТ</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+<div class="wrap">
+  <div class="home-hero">
+    <div class="home-kicker"><div class="status-dot"></div>Клієнтська зона · REBOOT SYSTEM</div>
+    <div class="home-title">ТВІЙ ОСОБИСТИЙ<br><em>ПРОТОКОЛ</em></div>
+    <p class="home-desc">Три анкети — один маршрут. Заповни один раз при старті, звітуй щодня і раз на тиждень. Коуч отримає все необхідне для точного ведення.</p>
+  </div>
+
+  <!-- Три картки-системи -->
+  <div class="sys-grid">
+    <div class="sys-card c-form">
+      <div class="sys-card-icon">📋</div>
+      <div class="sys-card-title">АНКЕТА КЛІЄНТА</div>
+      <div class="sys-card-sub">Детальна первинна анкета. Базові дані, тіло, харчування, тренінг. Залежно від рівня програми — додаються блоки здоров'я, психології та аналізів крові.</div>
+      <span class="sys-card-freq freq-once">🔘 Один раз — при старті</span>
+      <button class="sys-card-btn" onclick="showPage('form')">Заповнити анкету →</button>
+    </div>
+    <div class="sys-card c-diary">
+      <div class="sys-card-icon">📅</div>
+      <div class="sys-card-title">ЩОДЕННИК</div>
+      <div class="sys-card-sub">Щоденний звіт для відстеження харчування, тренувань, сну та самопочуття. Чим детальніше — тим точніше коректування програми.</div>
+      <span class="sys-card-freq freq-daily">🟢 Щодня — ввечері</span>
+      <button class="sys-card-btn" onclick="showPage('diary')">Заповнити щоденник →</button>
+    </div>
+    <div class="sys-card c-week">
+      <div class="sys-card-icon">📊</div>
+      <div class="sys-card-title">ТИЖНЕВИЙ ЗВІТ</div>
+      <div class="sys-card-sub">Підсумок тижня: заміри, виконання плану, аналіз що спрацювало. Основа для коригування наступного тижня.</div>
+      <span class="sys-card-freq freq-weekly">🔵 Щонеділі — вранці</span>
+      <button class="sys-card-btn" onclick="showPage('weekly')">Заповнити звіт →</button>
+    </div>
+  </div>
+
+  <!-- Про систему -->
+  <div class="about-section">
+    <div class="section-label">Про систему</div>
+    <div class="about-grid">
+      <div class="about-item">
+        <div class="about-icon">⚡</div>
+        <div>
+          <div class="about-item-title">Bio-Management Coaching</div>
+          <div class="about-item-text">REBOOT SYSTEM — це не фітнес-клуб. Це системний підхід до тіла через біологію, дані та поведінкові зміни.</div>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🎯</div>
+        <div>
+          <div class="about-item-title">Три рівні — один маршрут</div>
+          <div class="about-item-text">Standard, Flagman, VIP — кожен рівень дає більше даних і точніше ведення. Рівень обирається разом з коучем.</div>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">📊</div>
+        <div>
+          <div class="about-item-title">Дані — основа прогресу</div>
+          <div class="about-item-text">Щоденні та тижневі звіти дозволяють коучу реагувати на зміни швидко, а не раз на місяць.</div>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🔒</div>
+        <div>
+          <div class="about-item-title">Тільки для тебе і коуча</div>
+          <div class="about-item-text">Всі анкети генерують текст для копіювання — ти відправляєш його коучу в Telegram напряму.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Таблиця коли заповнювати -->
+  <div class="section-label">Коли заповнювати</div>
+  <div class="when-table">
+    <div class="when-row when-row-hd">
+      <div class="when-name">Анкета</div>
+      <div class="when-desc">Коли і навіщо</div>
+      <div class="when-freq">Дія</div>
+    </div>
+    <div class="when-row">
+      <div class="when-name">📋 Анкета клієнта</div>
+      <div class="when-desc">При першому контакті з коучем або старті нової програми. Заповнюється один раз — оновлюється лише при суттєвих змінах.</div>
+      <button class="when-btn wb-form" onclick="showPage('form')">Відкрити</button>
+    </div>
+    <div class="when-row">
+      <div class="when-name">📅 Щоденник</div>
+      <div class="when-desc">Кожен вечір — 3–5 хвилин. Харчування, тренування, сон, енергія. Коуч бачить динаміку і може коригувати програму в реальному часі.</div>
+      <button class="when-btn wb-diary" onclick="showPage('diary')">Відкрити</button>
+    </div>
+    <div class="when-row">
+      <div class="when-name">📊 Тижневий звіт</div>
+      <div class="when-desc">Щонеділі вранці — до 10 хвилин. Заміри тіла, підсумок тижня, відсоток виконання плану. База для стратегічних рішень.</div>
+      <button class="when-btn wb-week" onclick="showPage('weekly')">Відкрити</button>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <span class="page-nav-btn ghost">—</span>
+    <button class="page-nav-btn primary" onclick="showPage('form')">Анкета клієнта →</button>
+  </div>
+  <div class="footer">
+    <div class="footer-brand">REBOOT <em>SYSTEM</em> · @mzhukovd.rebootsystem</div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: FORM (анкета клієнта — без змін)
+══════════════════════════════════════════ -->
+<div class="page" id="page-form">
+<div class="wrap">
+  <div class="hero">
+    <div class="status-badge"><div class="status-dot"></div>Анкета клієнта · REBOOT SYSTEM</div>
+    <div class="hero-title">АНКЕТА <em>КЛІЄНТА</em></div>
+    <p class="hero-sub">Заповни — отримай персональний протокол. Чим більше деталей, тим точніший результат.</p>
+  </div>
+
+  <div class="tier-wrap">
+    <div class="tier-ey">Рівень програми</div>
+    <div class="tier-pills">
+      <button class="tp std" onclick="setTier('std')">STANDARD</button>
+      <button class="tp flag on" onclick="setTier('flag')">FLAGMAN</button>
+      <button class="tp vip" onclick="setTier('vip')">VIP</button>
+    </div>
+    <div class="tier-info" id="t-info"></div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar"><div class="prog-fill pf-flag" id="prog"></div></div></div>
+
+  <!-- 1. БАЗОВІ ДАНІ -->
+  <div class="card req" id="s-base">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic1">👤</div><div><div class="card-name">Базові дані</div><div class="card-sub">Ім'я, вік, контакти</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f"><label>Ім'я <span class="rs">★</span></label><input id="f-name" placeholder="Максим"/><div class="field-err" id="e-name">Вкажи ім'я</div></div>
+        <div class="f"><label>Вік <span class="rs">★</span></label><input id="f-age" type="number" placeholder="28"/><div class="field-err" id="e-age">Вкажи вік</div></div>
+        <div class="f"><label>Стать</label><select id="f-gender"><option value="">— оберіть —</option><option>Чоловік</option><option>Жінка</option></select></div>
+        <div class="f"><label>Місто</label><input id="f-city" placeholder="Київ"/></div>
+        <div class="f f2"><label>Telegram / Instagram <span class="rs">★</span></label><input id="f-contacts" placeholder="@нікнейм або +380..."/><div class="field-err" id="e-contacts">Вкажи контакт</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. АНТРОПОМЕТРІЯ -->
+  <div class="card req" id="s-body">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic2">📏</div><div><div class="card-name">Антропометрія</div><div class="card-sub">Вага, зріст, склад тіла</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f"><label>Вага (кг) <span class="rs">★</span></label><input id="f-weight" type="number" placeholder="82"/><div class="field-err" id="e-weight">Вкажи вагу</div></div>
+        <div class="f"><label>Зріст (см) <span class="rs">★</span></label><input id="f-height" type="number" placeholder="178"/><div class="field-err" id="e-height">Вкажи зріст</div></div>
+        <div class="f"><label>% жиру (якщо відомо)</label><input id="f-fat" type="number" placeholder="18"/></div>
+        <div class="f"><label>Обхват талії (см)</label><input id="f-waist" type="number" placeholder="88"/></div>
+        <div class="f f2"><label>Тип статури</label>
+          <div class="pills" id="g-body-type">
+            <div class="pill" onclick="pick(this,'g-body-type')">Ектоморф (худий)</div>
+            <div class="pill" onclick="pick(this,'g-body-type')">Мезоморф (атлетичний)</div>
+            <div class="pill" onclick="pick(this,'g-body-type')">Ендоморф (повний)</div>
+            <div class="pill" onclick="pick(this,'g-body-type')">Змішаний</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ЦІЛІ -->
+  <div class="card req" id="s-goals">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic3">🎯</div><div><div class="card-name">Цілі</div><div class="card-sub">Напрямок, терміни, мотивація</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2"><label>Основна ціль <span class="rs">★</span></label>
+          <div class="pills" id="g-main-goal">
+            <div class="pill" onclick="pick(this,'g-main-goal')">Набір маси</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Схуднення</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Рекомпозиція</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Витривалість</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Здоров'я / довголіття</div>
+            <div class="pill" onclick="pick(this,'g-main-goal')">Спортивний результат</div>
+          </div>
+          <div class="field-err" id="e-main-goal">Вибери ціль</div>
+        </div>
+        <div class="f"><label>Рівень підготовки</label><select id="f-level"><option>Початківець (до 1 року)</option><option>Середній (1–3 роки)</option><option>Досвідчений (3+ роки)</option></select></div>
+        <div class="f"><label>Термін (місяців)</label><input id="f-timeline" type="number" placeholder="3"/></div>
+        <div class="f f2"><label>Що вже пробував — не спрацювало?</label><textarea id="f-tried" placeholder="Дієти, програми, добавки..."></textarea></div>
+        <div class="f f2"><label>Мотивація / заради чого?</label><textarea id="f-motivation" placeholder="Особиста причина, подія, бажаний стан..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. ХАРЧУВАННЯ -->
+  <div class="card req" id="s-nutr">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic4">🥩</div><div><div class="card-name">Харчування</div><div class="card-sub">Раціон, режим, обмеження</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f"><label>Прийомів їжі на день</label><select id="f-meals"><option value="">— оберіть —</option><option>1–2</option><option>3</option><option>4–5</option><option>6+</option><option>Хаотично</option></select></div>
+        <div class="f"><label>Тип харчування</label><select id="f-diet"><option value="">— оберіть —</option><option>Всеїдний</option><option>Вегетаріанець</option><option>Веган</option><option>Keto / Low carb</option><option>Без глютену</option><option>Без лактози</option></select></div>
+        <div class="f f2"><label>Типовий день харчування <span class="rs">★</span></label><textarea id="f-food" placeholder="Сніданок / обід / вечеря / перекуси..."></textarea><div class="field-err" id="e-food">Опиши харчування</div></div>
+        <div class="f f2"><label>Алергії / непереносимість</label><input id="f-allergy" placeholder="Лактоза, горіхи — або 'немає'"/></div>
+        <div class="f f2"><label>Поточні добавки</label><input id="f-supps" placeholder="Протеїн, вітаміни — або 'нічого'"/></div>
+        <div class="f f2"><label>Умови харчування</label>
+          <div class="pills" id="g-food-access">
+            <div class="pill" onclick="pick(this,'g-food-access')">Готую сам</div>
+            <div class="pill" onclick="pick(this,'g-food-access')">Кафе / ресторани</div>
+            <div class="pill" onclick="pick(this,'g-food-access')">Польові умови</div>
+            <div class="pill" onclick="pick(this,'g-food-access')">Нестабільно</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. ТРЕНІНГ -->
+  <div class="card req" id="s-train">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic5">🏋️</div><div><div class="card-name">Тренінг</div><div class="card-sub">Активність, обладнання, спосіб життя</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2"><label>Частота тренувань <span class="rs">★</span></label>
+          <div class="pills" id="g-train-freq">
+            <div class="pill" onclick="pick(this,'g-train-freq')">Не тренується</div>
+            <div class="pill" onclick="pick(this,'g-train-freq')">1–2×/тиж</div>
+            <div class="pill" onclick="pick(this,'g-train-freq')">3–4×/тиж</div>
+            <div class="pill" onclick="pick(this,'g-train-freq')">5+×/тиж</div>
+            <div class="pill" onclick="pick(this,'g-train-freq')">Нестабільно</div>
+          </div>
+          <div class="field-err" id="e-train-freq">Вибери частоту</div>
+        </div>
+        <div class="f f2"><label>Обладнання</label>
+          <div class="pills" id="g-equip">
+            <div class="pill" onclick="pick(this,'g-equip')">Повний зал</div>
+            <div class="pill" onclick="pick(this,'g-equip')">Домашній зал</div>
+            <div class="pill" onclick="pick(this,'g-equip')">Вага тіла</div>
+            <div class="pill" onclick="pick(this,'g-equip')">Змінний</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Спосіб життя <span class="rs">★</span></label>
+          <div class="pills" id="g-lifestyle">
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Офіс / сидячий</div>
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Фізична праця</div>
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Військовий / поле</div>
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Спортсмен</div>
+            <div class="pill" onclick="pick(this,'g-lifestyle')">Нестабільний графік</div>
+          </div>
+          <div class="field-err" id="e-lifestyle">Вибери спосіб життя</div>
+        </div>
+        <div class="f f2"><label>Опис поточного тренінгу</label><textarea id="f-train" placeholder="Що робить зараз, яка програма..."></textarea></div>
+        <div class="f f2"><label>Травми / обмеження</label><input id="f-injuries" placeholder="Коліна, спина — або 'немає'"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. ЗДОРОВ'Я (Flagman+) -->
+  <div class="card" id="s-health" data-section="health" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic6">❤️</div><div><div class="card-name">Здоров'я</div><div class="card-sub">Скарги, сон, стрес, стани</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2"><label>Скарги (можна декілька)</label>
+          <div class="pills" id="g-symptoms">
+            <div class="pill" onclick="multi(this)">😴 Низька енергія</div>
+            <div class="pill" onclick="multi(this)">💤 Поганий сон</div>
+            <div class="pill" onclick="multi(this)">😰 Хронічний стрес</div>
+            <div class="pill" onclick="multi(this)">🌫️ Туман у голові</div>
+            <div class="pill" onclick="multi(this)">🔥 Низьке лібідо</div>
+            <div class="pill" onclick="multi(this)">⚖️ Зайва вага</div>
+            <div class="pill" onclick="multi(this)">💪 Не набирає масу</div>
+            <div class="pill" onclick="multi(this)">😟 Тривожність</div>
+            <div class="pill" onclick="multi(this)">⚡ Втомлюваність</div>
+            <div class="pill" onclick="multi(this)">🫃 Проблеми з ШКТ</div>
+          </div>
+        </div>
+        <div class="f"><label>Якість сну <span class="rs">★</span></label>
+          <select id="f-sleep"><option value="">— оберіть —</option><option>Добра (7–9 год)</option><option>Середня (5–7 год)</option><option>Погана (&lt;5 год)</option><option>Дуже погана / інсомнія</option></select>
+          <div class="field-err" id="e-sleep">Вибери якість сну</div>
+        </div>
+        <div class="f"><label>Рівень стресу (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="stress-scale"></div><input type="hidden" id="f-stress"/>
+          <div class="field-err" id="e-stress">Вкажи рівень стресу</div>
+        </div>
+        <div class="f f2"><label>Хронічні захворювання / діагнози</label><input id="f-conditions" placeholder="Або 'немає'"/></div>
+        <div class="f f2"><label>Ліки / гормони</label><input id="f-meds" placeholder="Або 'немає'"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. ПСИХОЛОГІЯ (VIP) -->
+  <div class="card" id="s-psych" data-section="psych" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic8">🧠</div><div><div class="card-name">Психологія</div><div class="card-sub">Особистість, ставлення до їжі, очікування</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2"><label>Тип особистості</label>
+          <div class="pills" id="g-personality">
+            <div class="pill" onclick="pick(this,'g-personality')">Дисципліна / системність</div>
+            <div class="pill" onclick="pick(this,'g-personality')">Мотивація / результат</div>
+            <div class="pill" onclick="pick(this,'g-personality')">Перфекціонізм</div>
+            <div class="pill" onclick="pick(this,'g-personality')">Прокрастинація</div>
+            <div class="pill" onclick="pick(this,'g-personality')">Змішаний</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Ставлення до їжі</label>
+          <div class="pills" id="g-food-rel">
+            <div class="pill" onclick="pick(this,'g-food-rel')">Їжа — паливо</div>
+            <div class="pill" onclick="pick(this,'g-food-rel')">Їжа — задоволення</div>
+            <div class="pill" onclick="pick(this,'g-food-rel')">Стресове їдіння</div>
+            <div class="pill" onclick="pick(this,'g-food-rel')">Нейтральне</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Що очікуєш від коуча?</label>
+          <div class="pills" id="g-coach">
+            <div class="pill" onclick="pick(this,'g-coach')">Жорсткий контроль</div>
+            <div class="pill" onclick="pick(this,'g-coach')">Підтримка та мотивація</div>
+            <div class="pill" onclick="pick(this,'g-coach')">Тільки план</div>
+            <div class="pill" onclick="pick(this,'g-coach')">Гнучкість</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Психологічні бар'єри</label><textarea id="f-barriers" placeholder="Що заважає досягати цілей..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider"><div class="sec-divider-line"></div><div class="sec-divider-label">Необов'язково — за бажанням</div><div class="sec-divider-line"></div></div>
+
+  <!-- 8. АНАЛІЗИ КРОВІ -->
+  <div class="card" id="s-labs">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic7">🔬</div><div><div class="card-name">Аналізи крові</div><div class="card-sub">Загальні + спеціальні за статтю — не обов'язково</div></div></div>
+      <div class="card-hd-r"><span class="chev">▼</span></div>
+    </div>
+    <div class="card-bd">
+      <div class="f f2" style="margin-bottom:16px"><label>Дата здачі аналізів</label><input id="f-lab-date" type="date"/></div>
+      <div class="lab-section-label">📋 Загальні показники (для всіх)</div>
+      <div class="lab-hd"><div class="lh">Показник</div><div class="lh">Результат</div><div class="lh">Норма</div><div class="lh"></div></div>
+      <div id="lab-rows-general"></div>
+      <div class="lab-gender-pick">
+        <div class="lab-gender-label">Гормональна панель — обери стать:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="lg-btn lg-m on" id="lb-male" onclick="setLabGender('male')">♂ Чоловіча</button>
+          <button class="lg-btn lg-f" id="lb-female" onclick="setLabGender('female')">♀ Жіноча</button>
+        </div>
+      </div>
+      <div id="lab-block-male"><div class="lab-section-label" style="color:rgba(10,132,255,0.9)">♂ Чоловічі гормони та специфічні</div><div class="lab-hd"><div class="lh">Показник</div><div class="lh">Результат</div><div class="lh">Норма</div><div class="lh"></div></div><div id="lab-rows-male"></div></div>
+      <div id="lab-block-female" style="display:none"><div class="lab-section-label" style="color:rgba(255,105,180,0.9)">♀ Жіночі гормони та специфічні</div><div class="lab-hd"><div class="lh">Показник</div><div class="lh">Результат</div><div class="lh">Норма</div><div class="lh"></div></div><div id="lab-rows-female"></div></div>
+      <button class="add-lab" type="button" onclick="addLabCustom()">+ Додати власний показник</button>
+    </div>
+  </div>
+
+  <!-- 9. ДОДАТКОВА ІНФОРМАЦІЯ -->
+  <div class="card" id="s-extra">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic9">📋</div><div><div class="card-name">Додаткова інформація</div><div class="card-sub">Нотатки, фокус, дата старту — не обов'язково</div></div></div>
+      <div class="card-hd-r"><span class="chev">▼</span></div>
+    </div>
+    <div class="card-bd">
+      <div class="fg">
+        <div class="f"><label>Обрана програма</label>
+          <select id="f-plan"><option value="">— оберіть —</option><option>Тіло під ключ</option><option>Анті-Фітнес</option><option>Протокол 80/20</option></select>
+        </div>
+        <div class="f"><label>Дата старту</label><input id="f-start" type="date"/></div>
+        <div class="f f2"><label>Основний фокус</label><input id="f-focus" placeholder="Верхня частина тіла, метаболізм, гормони..."/></div>
+        <div class="f f2"><label>Додаткові нотатки</label><textarea id="f-notes" placeholder="Все, що може бути корисним..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gen-wrap">
+    <button class="gen-btn gb-flag" id="gen-btn" onclick="generateForm()">⚡ СФОРМУВАТИ АНКЕТУ</button>
+    <div class="val-msg" id="val-msg"></div>
+  </div>
+  <div class="out-wrap" id="out-wrap">
+    <div class="out-hd"><span class="out-lbl" id="out-lbl">REBOOT SYSTEM · Анкета</span><div class="out-acts"><button class="cpbtn" id="cpbtn" onclick="copyOut('out-body','cpbtn')">📋 Копіювати</button><button class="clbtn" onclick="document.getElementById('out-wrap').style.display='none'">✕</button></div></div>
+    <pre class="out-body" id="out-body"></pre>
+  </div>
+  <div class="page-nav">
+    <button class="page-nav-btn" onclick="showPage('home')">← Головна</button>
+    <button class="page-nav-btn primary" onclick="showPage('diary')">Щоденник →</button>
+  </div>
+  <div class="footer"><div class="footer-brand">REBOOT <em>SYSTEM</em> · @mzhukovd.rebootsystem</div></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: DIARY — щоденник
+══════════════════════════════════════════ -->
+<div class="page" id="page-diary">
+<div class="wrap">
+  <div class="page-hero">
+    <div class="status-badge"><div class="status-dot"></div>Щоденник · REBOOT SYSTEM</div>
+    <div class="page-title">ЩОДЕННИЙ <em>ЗВІТ</em></div>
+    <p class="page-sub">Заповнюй щовечора — 3–5 хвилин. Це основа точного ведення.</p>
+  </div>
+
+  <!-- Рівень -->
+  <div class="tier-wrap">
+    <div class="tier-ey">Рівень програми</div>
+    <div class="tier-pills">
+      <button class="tp std" onclick="setDiaryTier('std')">STANDARD</button>
+      <button class="tp flag on" onclick="setDiaryTier('flag')">FLAGMAN</button>
+      <button class="tp vip" onclick="setDiaryTier('vip')">VIP</button>
+    </div>
+    <div class="tier-info" id="dt-info"></div>
+  </div>
+
+  <!-- Дата -->
+  <div class="date-strip">
+    <div class="date-strip-icon">📅</div>
+    <div>
+      <div class="date-strip-label">Дата звіту</div>
+      <input type="date" id="d-date"/>
+    </div>
+  </div>
+
+  <!-- HINT: загальна підказка -->
+  <div class="hint-box" style="margin-bottom:16px">
+    <div class="hint-icon">💡</div>
+    <div class="hint-text"><strong>Як заповнювати:</strong> Будь чесним і конкретним. Навіть «поганий день» — це цінна інформація для коуча. Краще написати «зірвався» ніж пропустити звіт.</div>
+  </div>
+
+  <!-- 1. ХАРЧУВАННЯ -->
+  <div class="card req" id="d-nutr">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic4">🥩</div><div><div class="card-name">Харчування</div><div class="card-sub">Що і коли їв сьогодні</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box hint-green" style="margin-bottom:14px">
+        <div class="hint-icon">🥗</div>
+        <div class="hint-text"><strong>Підказка:</strong> Пиши конкретно — не «поїв нормально», а «2 яйця + вівсянка 60г + чай» або просто «пропустив». Вода — в склянках або мл.</div>
+      </div>
+      <div class="fg">
+        <div class="f f2"><label>Сніданок <span class="rs">★</span></label><textarea id="d-breakfast" placeholder="Що їв, приблизно о котрій…" style="min-height:60px"></textarea></div>
+        <div class="f f2"><label>Обід <span class="rs">★</span></label><textarea id="d-lunch" placeholder="Що їв, де (дім / кафе / пропустив)…" style="min-height:60px"></textarea></div>
+        <div class="f f2"><label>Вечеря <span class="rs">★</span></label><textarea id="d-dinner" placeholder="Що їв…" style="min-height:60px"></textarea></div>
+        <div class="f f2"><label>Перекуси</label><textarea id="d-snacks" placeholder="Фрукти, горіхи, протеїн бар — або 'не перекушував'…" style="min-height:50px"></textarea></div>
+        <div class="f"><label>Вода (склянок / мл)</label><input id="d-water" placeholder="6 склянок / 1500 мл"/></div>
+        <div class="f"><label>Дотримався плану харчування?</label>
+          <div class="pills" id="g-diet-plan">
+            <div class="pill" onclick="pick(this,'g-diet-plan')">✅ Так, повністю</div>
+            <div class="pill" onclick="pick(this,'g-diet-plan')">⚡ Частково</div>
+            <div class="pill" onclick="pick(this,'g-diet-plan')">❌ Ні / зірвався</div>
+          </div>
+        </div>
+        <div class="f f2" id="d-diet-comment-wrap" style="display:none">
+          <label>Коментар (що пішло не так?)</label>
+          <textarea id="d-diet-comment" placeholder="Спокусився, не встиг приготувати, стрес…" style="min-height:50px"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ТРЕНУВАННЯ -->
+  <div class="card req" id="d-train">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic5">🏋️</div><div><div class="card-name">Тренування</div><div class="card-sub">Активність сьогодні</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box" style="margin-bottom:14px">
+        <div class="hint-icon">🏃</div>
+        <div class="hint-text"><strong>Підказка:</strong> Якщо сьогодні день відпочинку — вибери «Відпочинок» і оціни загальну активність. Будь-яка інформація краща за відсутність.</div>
+      </div>
+      <div class="fg">
+        <div class="f f2"><label>Чи тренувався сьогодні? <span class="rs">★</span></label>
+          <div class="pills" id="g-trained">
+            <div class="pill" onclick="dTrainToggle(this,'yes')">💪 Так</div>
+            <div class="pill" onclick="dTrainToggle(this,'rest')">😴 День відпочинку</div>
+            <div class="pill" onclick="dTrainToggle(this,'skip')">❌ Пропустив (мав тренуватись)</div>
+          </div>
+        </div>
+        <div id="d-train-yes-block" style="display:none;grid-column:1/-1">
+          <div class="fg">
+            <div class="f f2"><label>Що робив (тип тренування)</label><textarea id="d-train-what" placeholder="Силове / кардіо / розтяжка. Основні вправи…" style="min-height:60px"></textarea></div>
+            <div class="f"><label>Тривалість (хв)</label><input id="d-train-dur" type="number" placeholder="60"/></div>
+            <div class="f"><label>Самопочуття під час (1–10)</label>
+              <div class="scale" id="d-train-feel-scale"></div><input type="hidden" id="d-train-feel"/>
+            </div>
+          </div>
+        </div>
+        <div id="d-train-skip-block" style="display:none;grid-column:1/-1">
+          <div class="f f2"><label>Причина пропуску</label><textarea id="d-train-skip-why" placeholder="Зайнятість, втома, погане самопочуття…" style="min-height:50px"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. СОН та ВІДНОВЛЕННЯ -->
+  <div class="card req" id="d-sleep">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic1">😴</div><div><div class="card-name">Сон та відновлення</div><div class="card-sub">Минула ніч</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box hint-blue" style="margin-bottom:14px">
+        <div class="hint-icon">🌙</div>
+        <div class="hint-text"><strong>Підказка:</strong> Сон — це не лінь, це м'яз. 7–9 годин якісного сну = +30% до результату від тренінгу. Цей блок один з найважливіших.</div>
+      </div>
+      <div class="fg">
+        <div class="f"><label>Годин сну <span class="rs">★</span></label><input id="d-sleep-h" type="number" placeholder="7" min="1" max="14" step="0.5"/></div>
+        <div class="f"><label>Якість сну (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="d-sleep-scale"></div><input type="hidden" id="d-sleep-q"/>
+        </div>
+        <div class="f"><label>Рівень стресу за день (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="d-stress-scale"></div><input type="hidden" id="d-stress-q"/>
+        </div>
+        <div class="f"><label>Рівень енергії за день (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="d-energy-scale"></div><input type="hidden" id="d-energy-q"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. ДОБАВКИ (Flagman+) -->
+  <div class="card" id="d-supps-block" data-dsection="supps" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic2">💊</div><div><div class="card-name">Добавки та нутрієнти</div><div class="card-sub">Що прийняв сьогодні</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box" style="margin-bottom:14px">
+        <div class="hint-icon">💊</div>
+        <div class="hint-text"><strong>Підказка:</strong> Перерахуй кожну добавку окремо. Якщо не приймав нічого з плану — напиши чому. Систематичність важливіша за разові прийоми.</div>
+      </div>
+      <div class="fg">
+        <div class="f f2"><label>Добавки прийняті сьогодні</label><textarea id="d-supps-taken" placeholder="Протеїн (30г), омега-3 (2 капс.), віт D (2000 МО), магній…" style="min-height:60px"></textarea></div>
+        <div class="f f2"><label>Пропущені добавки (якщо є)</label><input id="d-supps-missed" placeholder="Пробіотик — забув / Кофеїн — пропустив"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. БІОМЕТРІЯ (Flagman+) -->
+  <div class="card" id="d-bio-block" data-dsection="bio" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic3">📏</div><div><div class="card-name">Біометрія</div><div class="card-sub">Заміри тіла (якщо вимірював)</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box hint-green" style="margin-bottom:14px">
+        <div class="hint-icon">📊</div>
+        <div class="hint-text"><strong>Підказка:</strong> Вимірюй вагу вранці, після туалету, до їжі — тільки тоді дані будуть порівнювані. Не потрібно вимірювати щодня, достатньо 2–3 рази на тиждень.</div>
+      </div>
+      <div class="fg">
+        <div class="f"><label>Вага вранці (кг)</label><input id="d-weight" type="number" placeholder="82.5" step="0.1"/></div>
+        <div class="f"><label>Обхват талії (см)</label><input id="d-waist" type="number" placeholder="88"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. ГОРМОНАЛЬНИЙ ФОН + ПСИХОЛОГІЯ (VIP) -->
+  <div class="card" id="d-psych-block" data-dsection="psych" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic8">🧠</div><div><div class="card-name">Гормони та психологія</div><div class="card-sub">Внутрішній стан, мотивація, поведінка</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box" style="margin-bottom:14px">
+        <div class="hint-icon">🔬</div>
+        <div class="hint-text"><strong>Підказка (VIP):</strong> Ці питання виходять за рамки звичайного фітнесу. Гормональні та психологічні патерни — ключ до стійких результатів. Чесність тут особливо важлива.</div>
+      </div>
+      <div class="fg">
+        <div class="f f2"><label>Рівень мотивації сьогодні</label>
+          <div class="pills" id="g-motivation-d">
+            <div class="pill" onclick="pick(this,'g-motivation-d')">🔥 Заряджений / у потоці</div>
+            <div class="pill" onclick="pick(this,'g-motivation-d')">😐 Нейтрально, по плану</div>
+            <div class="pill" onclick="pick(this,'g-motivation-d')">😩 Апатія / спустошеність</div>
+            <div class="pill" onclick="pick(this,'g-motivation-d')">😤 Подразненість / напруга</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Харчова поведінка сьогодні</label>
+          <div class="pills" id="g-food-beh">
+            <div class="pill" onclick="pick(this,'g-food-beh')">✅ Усвідомлено, за планом</div>
+            <div class="pill" onclick="pick(this,'g-food-beh')">😤 Стресове переїдання</div>
+            <div class="pill" onclick="pick(this,'g-food-beh')">😶 Пропускав їжу (не хотілось)</div>
+            <div class="pill" onclick="pick(this,'g-food-beh')">🎉 Соціальне / зустрічі / свято</div>
+          </div>
+        </div>
+        <div class="f"><label>Лібідо / гормональний тонус</label>
+          <div class="scale" id="d-libido-scale"></div><input type="hidden" id="d-libido"/>
+        </div>
+        <div class="f"><label>Концентрація / когнітивна ясність</label>
+          <div class="scale" id="d-focus-scale"></div><input type="hidden" id="d-focus"/>
+        </div>
+        <div class="f f2"><label>Ранковий стан (перші 30 хв після підйому)</label>
+          <div class="pills" id="g-morning-state">
+            <div class="pill" onclick="pick(this,'g-morning-state')">⚡ Бадьорий / відпочивший</div>
+            <div class="pill" onclick="pick(this,'g-morning-state')">😴 Важко прокинутися</div>
+            <div class="pill" onclick="pick(this,'g-morning-state')">🤯 Голова важка / туман</div>
+            <div class="pill" onclick="pick(this,'g-morning-state')">😰 Тривога / напруга зранку</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. НОТАТКИ — завжди -->
+  <div class="card" id="d-notes-card">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic9">💬</div><div><div class="card-name">Нотатки для коуча</div><div class="card-sub">Питання, спостереження, запити</div></div></div>
+      <div class="card-hd-r"><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2"><label>Що пішло добре сьогодні?</label><textarea id="d-good" placeholder="Встиг поготувати, сила на тренуванні зросла, ліг вчасно…" style="min-height:55px"></textarea></div>
+        <div class="f f2"><label>Що складно / що заважало?</label><textarea id="d-hard" placeholder="Брак часу, тяга до солодкого, втома після обіду…" style="min-height:55px"></textarea></div>
+        <div class="f f2"><label>Питання або запит до коуча</label><textarea id="d-question" placeholder="Можна замінити вправу? Чому не йде вага? Чи нормально що…" style="min-height:55px"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gen-wrap">
+    <button class="gen-btn gb-flag" id="d-gen-btn" onclick="generateDiary()">📅 СФОРМУВАТИ ЗВІТ</button>
+    <div class="val-msg" id="d-val-msg"></div>
+  </div>
+  <div class="out-wrap" id="d-out-wrap">
+    <div class="out-hd"><span class="out-lbl" id="d-out-lbl">REBOOT SYSTEM · Щоденник</span><div class="out-acts"><button class="cpbtn" id="d-cpbtn" onclick="copyOut('d-out-body','d-cpbtn')">📋 Копіювати</button><button class="clbtn" onclick="document.getElementById('d-out-wrap').style.display='none'">✕</button></div></div>
+    <pre class="out-body" id="d-out-body"></pre>
+  </div>
+  <div class="page-nav">
+    <button class="page-nav-btn" onclick="showPage('form')">← Анкета</button>
+    <button class="page-nav-btn primary" onclick="showPage('weekly')">Тижневий звіт →</button>
+  </div>
+  <div class="footer"><div class="footer-brand">REBOOT <em>SYSTEM</em> · @mzhukovd.rebootsystem</div></div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: WEEKLY — тижневий звіт
+══════════════════════════════════════════ -->
+<div class="page" id="page-weekly">
+<div class="wrap">
+  <div class="page-hero">
+    <div class="status-badge"><div class="status-dot"></div>Тижневий звіт · REBOOT SYSTEM</div>
+    <div class="page-title">ТИЖНЕВИЙ <em>ЗВІТ</em></div>
+    <p class="page-sub">Раз на тиждень — підсумок. Заповнюй у неділю вранці.</p>
+  </div>
+
+  <!-- Рівень -->
+  <div class="tier-wrap">
+    <div class="tier-ey">Рівень програми</div>
+    <div class="tier-pills">
+      <button class="tp std" onclick="setWeeklyTier('std')">STANDARD</button>
+      <button class="tp flag on" onclick="setWeeklyTier('flag')">FLAGMAN</button>
+      <button class="tp vip" onclick="setWeeklyTier('vip')">VIP</button>
+    </div>
+    <div class="tier-info" id="wt-info"></div>
+  </div>
+
+  <!-- Тиждень -->
+  <div class="date-strip">
+    <div class="date-strip-icon">📅</div>
+    <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;">
+      <div>
+        <div class="date-strip-label">З</div>
+        <input type="date" id="w-from"/>
+      </div>
+      <div style="color:var(--w4);font-family:var(--fm);font-size:12px">—</div>
+      <div>
+        <div class="date-strip-label">По</div>
+        <input type="date" id="w-to"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint-box" style="margin-bottom:16px">
+    <div class="hint-icon">📊</div>
+    <div class="hint-text"><strong>Як заповнювати:</strong> Порівнюй з попереднім тижнем, а не з ідеалом. Прогрес нелінійний — навіть «поганий тиждень» дає коучу важливі дані.</div>
+  </div>
+
+  <!-- 1. ЗАМІРИ ТІЛА -->
+  <div class="card req" id="w-body">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic2">📏</div><div><div class="card-name">Заміри тіла</div><div class="card-sub">На початку і в кінці тижня</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box hint-green" style="margin-bottom:14px">
+        <div class="hint-icon">⚖️</div>
+        <div class="hint-text"><strong>Підказка:</strong> Вага в однакових умовах — вранці, після туалету, до їжі. Якщо не вимірював протягом тижня — постав вагу сьогодні вранці.</div>
+      </div>
+      <div class="fg">
+        <div class="f"><label>Вага на початку тижня (кг) <span class="rs">★</span></label><input id="w-weight-start" type="number" placeholder="82.0" step="0.1"/></div>
+        <div class="f"><label>Вага в кінці тижня (кг) <span class="rs">★</span></label><input id="w-weight-end" type="number" placeholder="81.5" step="0.1"/></div>
+        <div class="f"><label>Обхват талії (см)</label><input id="w-waist" type="number" placeholder="88"/></div>
+        <div class="f"><label>% жиру (якщо є)</label><input id="w-fat" type="number" placeholder="18" step="0.1"/></div>
+        <div class="f f2"><label>Загальне відчуття від тіла за тиждень</label>
+          <div class="pills" id="g-body-feel">
+            <div class="pill" onclick="pick(this,'g-body-feel')">💪 Краще ніж минулого тижня</div>
+            <div class="pill" onclick="pick(this,'g-body-feel')">😐 Приблизно так само</div>
+            <div class="pill" onclick="pick(this,'g-body-feel')">😟 Гірше / відкат</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ВИКОНАННЯ ПЛАНУ -->
+  <div class="card req" id="w-plan">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic3">🎯</div><div><div class="card-name">Виконання плану</div><div class="card-sub">Тренування та харчування</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box" style="margin-bottom:14px">
+        <div class="hint-icon">🎯</div>
+        <div class="hint-text"><strong>Підказка:</strong> Будь чесним у відсотках. 60% виконання плану — це вже добре, якщо ти це визнаєш. Коуч підкоригує, а не засудить.</div>
+      </div>
+      <div class="fg">
+        <div class="f"><label>Тренувань по плану <span class="rs">★</span></label><input id="w-train-plan" type="number" placeholder="4" min="0" max="14"/></div>
+        <div class="f"><label>Тренувань факт <span class="rs">★</span></label><input id="w-train-actual" type="number" placeholder="3" min="0" max="14"/></div>
+        <div class="f f2"><label>Дотримання харчування (%) <span class="rs">★</span></label>
+          <div class="pills" id="g-food-comp">
+            <div class="pill" onclick="pick(this,'g-food-comp')">90–100% — точно по плану</div>
+            <div class="pill" onclick="pick(this,'g-food-comp')">70–90% — майже по плану</div>
+            <div class="pill" onclick="pick(this,'g-food-comp')">50–70% — часткове дотримання</div>
+            <div class="pill" onclick="pick(this,'g-food-comp')">менше 50% — важкий тиждень</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Причини відхилень від плану (якщо є)</label><textarea id="w-deviation" placeholder="Ділові зустрічі, хвороба, відрядження, свято…" style="min-height:55px"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. СОН та ВІДНОВЛЕННЯ -->
+  <div class="card req" id="w-recovery">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic1">😴</div><div><div class="card-name">Сон та відновлення</div><div class="card-sub">Середні показники за тиждень</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f"><label>Середня тривалість сну (год) <span class="rs">★</span></label><input id="w-sleep-avg" type="number" placeholder="7" step="0.5"/></div>
+        <div class="f"><label>Середня якість сну (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="w-sleep-scale"></div><input type="hidden" id="w-sleep-q"/>
+        </div>
+        <div class="f"><label>Середній стрес за тиждень (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="w-stress-scale"></div><input type="hidden" id="w-stress-q"/>
+        </div>
+        <div class="f"><label>Середня енергія за тиждень (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="w-energy-scale"></div><input type="hidden" id="w-energy-q"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. ПРОГРЕС та РЕЗУЛЬТАТИ -->
+  <div class="card req" id="w-results">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic9">💪</div><div><div class="card-name">Прогрес та результати</div><div class="card-sub">Що вийшло, що ні</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2"><label>Найкращий результат / момент тижня</label><textarea id="w-best" placeholder="Новий рекорд у вправі, помітив зміни в дзеркалі, покращився сон…" style="min-height:55px"></textarea></div>
+        <div class="f f2"><label>Що не вийшло / де зірвався</label><textarea id="w-fail" placeholder="Що саме, чому, як часто це повторюється…" style="min-height:55px"></textarea></div>
+        <div class="f"><label>Загальна оцінка тижня (1–10) <span class="rs">★</span></label>
+          <div class="scale" id="w-overall-scale"></div><input type="hidden" id="w-overall-q"/>
+        </div>
+        <div class="f"><label>Порівняно з минулим тижнем</label>
+          <div class="pills" id="g-week-comp">
+            <div class="pill" onclick="pick(this,'g-week-comp')">⬆️ Краще</div>
+            <div class="pill" onclick="pick(this,'g-week-comp')">➡️ Так само</div>
+            <div class="pill" onclick="pick(this,'g-week-comp')">⬇️ Гірше</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. ДОБАВКИ Flagman+ -->
+  <div class="card" id="w-supps-block" data-wsection="supps" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic2">💊</div><div><div class="card-name">Добавки та нутрієнти</div><div class="card-sub">Аналіз дотримання протоколу</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box" style="margin-bottom:14px">
+        <div class="hint-icon">💊</div>
+        <div class="hint-text"><strong>Підказка:</strong> Систематичність прийому добавок — ключ до ефекту. Пропуск 3+ днів підряд обнуляє накопичувальний ефект (омега-3, вітамін D, магній).</div>
+      </div>
+      <div class="fg">
+        <div class="f f2"><label>Добавки по протоколу — відсоток дотримання</label>
+          <div class="pills" id="g-supps-comp">
+            <div class="pill" onclick="pick(this,'g-supps-comp')">90–100% — майже без пропусків</div>
+            <div class="pill" onclick="pick(this,'g-supps-comp')">70–90% — пропустив 1–2 дні</div>
+            <div class="pill" onclick="pick(this,'g-supps-comp')">менше 70% — часто забував</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Що пропускав і чому</label><input id="w-supps-miss" placeholder="Магній — закінчився, вітамін D — забував вранці…"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. ПОГЛИБЛЕНИЙ АНАЛІЗ VIP -->
+  <div class="card" id="w-deep-block" data-wsection="deep" style="display:none">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic8">🔬</div><div><div class="card-name">Поглиблений аналіз</div><div class="card-sub">Гормони, психологія, патерни (VIP)</div></div></div>
+      <div class="card-hd-r"><span class="req-badge">Обов'язково</span><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="hint-box" style="margin-bottom:14px">
+        <div class="hint-icon">🧬</div>
+        <div class="hint-text"><strong>VIP-аналіз:</strong> Цей блок допомагає відстежити гормональні цикли, поведінкові патерни та психологічні тригери — те, що звичайний фітнес-трекер ніколи не побачить.</div>
+      </div>
+      <div class="fg">
+        <div class="f f2"><label>Домінуючий стан за тиждень</label>
+          <div class="pills" id="g-week-state">
+            <div class="pill" onclick="pick(this,'g-week-state')">🔥 Драйв / висока продуктивність</div>
+            <div class="pill" onclick="pick(this,'g-week-state')">⚡ Стабільно, рівномірно</div>
+            <div class="pill" onclick="pick(this,'g-week-state')">😩 Втома / вигоряння</div>
+            <div class="pill" onclick="pick(this,'g-week-state')">🌊 Коливання / нестабільність</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Харчова поведінка за тиждень</label>
+          <div class="pills" id="g-week-food-beh">
+            <div class="pill" onclick="pick(this,'g-week-food-beh')">✅ Усвідомлена, контрольована</div>
+            <div class="pill" onclick="pick(this,'g-week-food-beh')">😤 Були зриви через стрес</div>
+            <div class="pill" onclick="pick(this,'g-week-food-beh')">🎉 Соціальні події вплинули</div>
+            <div class="pill" onclick="pick(this,'g-week-food-beh')">😶 Їв мало / не відчував голоду</div>
+          </div>
+        </div>
+        <div class="f f2"><label>Середній рівень лібідо / гормонального тонусу</label>
+          <div class="scale" id="w-libido-scale"></div><input type="hidden" id="w-libido"/>
+        </div>
+        <div class="f f2"><label>Головний психологічний патерн тижня (що повторювалось)</label><textarea id="w-pattern" placeholder="Прокрастинація ввечері, тяга до солодкого при стресі, уникнення тренувань…" style="min-height:60px"></textarea></div>
+        <div class="f f2"><label>Що хочеш змінити у наступному тижні?</label><textarea id="w-next" placeholder="Лягати раніше, планувати їжу в суботу, додати ранкову зарядку…" style="min-height:55px"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. ПИТАННЯ ДО КОУЧА -->
+  <div class="card" id="w-coach">
+    <div class="card-hd" onclick="tog(this)">
+      <div class="card-hd-l"><div class="card-ic ic7">💬</div><div><div class="card-name">Питання до коуча</div><div class="card-sub">Запити, корективи, спостереження</div></div></div>
+      <div class="card-hd-r"><span class="chev up">▼</span></div>
+    </div>
+    <div class="card-bd open">
+      <div class="fg">
+        <div class="f f2"><label>Питання / запити</label><textarea id="w-questions" placeholder="Чи варто збільшити калорійність? Можна замінити день тренування? Чому вага зупинилась?…" style="min-height:70px"></textarea></div>
+        <div class="f f2"><label>Що хочеш, щоб коуч звернув увагу на наступному тижні</label><textarea id="w-focus" placeholder="Більше уваги харчуванню в буднях, перевір мій план тренувань…" style="min-height:55px"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gen-wrap">
+    <button class="gen-btn gb-flag" id="w-gen-btn" onclick="generateWeekly()">📊 СФОРМУВАТИ ЗВІТ</button>
+    <div class="val-msg" id="w-val-msg"></div>
+  </div>
+  <div class="out-wrap" id="w-out-wrap">
+    <div class="out-hd"><span class="out-lbl" id="w-out-lbl">REBOOT SYSTEM · Тижневий звіт</span><div class="out-acts"><button class="cpbtn" id="w-cpbtn" onclick="copyOut('w-out-body','w-cpbtn')">📋 Копіювати</button><button class="clbtn" onclick="document.getElementById('w-out-wrap').style.display='none'">✕</button></div></div>
+    <pre class="out-body" id="w-out-body"></pre>
+  </div>
+  <div class="page-nav">
+    <button class="page-nav-btn" onclick="showPage('diary')">← Щоденник</button>
+    <button class="page-nav-btn" onclick="showPage('home')">Головна →</button>
+  </div>
+  <div class="footer"><div class="footer-brand">REBOOT <em>SYSTEM</em> · @mzhukovd.rebootsystem</div></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCRIPTS
+═══════════════════════════════ -->
+<script>
+/* ═══ PAGE ROUTER ═══ */
+var PAGES = ['home','form','diary','weekly'];
+function showPage(name){
+  PAGES.forEach(function(p){
+    document.getElementById('page-'+p).classList.remove('active');
+    var nt = document.getElementById('nt-'+p);
+    var mn = document.getElementById('mnt-'+p);
+    var nd = document.getElementById('ndd-'+p);
+    if(nt) nt.classList.remove('active');
+    if(mn) mn.classList.remove('active');
+    if(nd) nd.classList.remove('active');
+  });
+  document.getElementById('page-'+name).classList.add('active');
+  var nt2 = document.getElementById('nt-'+name);
+  var mn2 = document.getElementById('mnt-'+name);
+  var nd2 = document.getElementById('ndd-'+name);
+  if(nt2) nt2.classList.add('active');
+  if(mn2) mn2.classList.add('active');
+  if(nd2) nd2.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleMenu(){
+  var dd = document.getElementById('nav-dropdown');
+  var burger = document.getElementById('nav-burger');
+  var open = dd.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  // close on outside click
+  if(open){
+    setTimeout(function(){
+      document.addEventListener('click', closeOnOutside);
+    }, 10);
+  }
+}
+function closeMenu(){
+  document.getElementById('nav-dropdown').classList.remove('open');
+  document.getElementById('nav-burger').classList.remove('open');
+  document.removeEventListener('click', closeOnOutside);
+}
+function closeOnOutside(e){
+  var dd = document.getElementById('nav-dropdown');
+  var burger = document.getElementById('nav-burger');
+  if(!dd.contains(e.target) && !burger.contains(e.target)){
+    closeMenu();
+  }
+}
+
+/* ═══ TIER CONFIG — FORM ═══ */
+var TIER = 'flag';
+var LAB_GENDER = 'male';
+var TIER_CFG = {
+  std:{label:'Standard',info:'Базовий протокол — тіло, харчування, тренінг',shown:[],
+    required:[{id:'f-name',err:'e-name'},{id:'f-age',err:'e-age'},{id:'f-contacts',err:'e-contacts'},
+      {id:'f-weight',err:'e-weight'},{id:'f-height',err:'e-height'},
+      {id:'g-main-goal',type:'pill',err:'e-main-goal'},{id:'f-food',err:'e-food'},
+      {id:'g-train-freq',type:'pill',err:'e-train-freq'},{id:'g-lifestyle',type:'pill',err:'e-lifestyle'}]},
+  flag:{label:'Flagman',info:'Розширений аудит — + Здоров\'я',shown:['health'],
+    required:[{id:'f-name',err:'e-name'},{id:'f-age',err:'e-age'},{id:'f-contacts',err:'e-contacts'},
+      {id:'f-weight',err:'e-weight'},{id:'f-height',err:'e-height'},
+      {id:'g-main-goal',type:'pill',err:'e-main-goal'},{id:'f-food',err:'e-food'},
+      {id:'g-train-freq',type:'pill',err:'e-train-freq'},{id:'g-lifestyle',type:'pill',err:'e-lifestyle'},
+      {id:'f-sleep',err:'e-sleep'},{id:'f-stress',err:'e-stress'}]},
+  vip:{label:'VIP',info:'Повний біо-аудит — + Здоров\'я + Психологія',shown:['health','psych'],
+    required:[{id:'f-name',err:'e-name'},{id:'f-age',err:'e-age'},{id:'f-contacts',err:'e-contacts'},
+      {id:'f-weight',err:'e-weight'},{id:'f-height',err:'e-height'},
+      {id:'g-main-goal',type:'pill',err:'e-main-goal'},{id:'f-food',err:'e-food'},
+      {id:'g-train-freq',type:'pill',err:'e-train-freq'},{id:'g-lifestyle',type:'pill',err:'e-lifestyle'},
+      {id:'f-sleep',err:'e-sleep'},{id:'f-stress',err:'e-stress'}]}
+};
+var DYNAMIC_SECTIONS = {health:'s-health',psych:'s-psych'};
+
+/* ═══ TIER CONFIG — DIARY ═══ */
+var DIARY_TIER = 'flag';
+var DIARY_TIER_CFG = {
+  std:{label:'Standard',info:'Базовий щоденник — харчування, тренування, сон',sections:[]},
+  flag:{label:'Flagman',info:'Flagman — + Добавки + Біометрія',sections:['supps','bio']},
+  vip:{label:'VIP',info:'VIP — + Добавки + Біометрія + Гормони / Психологія',sections:['supps','bio','psych']}
+};
+
+/* ═══ TIER CONFIG — WEEKLY ═══ */
+var WEEKLY_TIER = 'flag';
+var WEEKLY_TIER_CFG = {
+  std:{label:'Standard',info:'Базовий тижневий звіт',sections:[]},
+  flag:{label:'Flagman',info:'Flagman — + Добавки',sections:['supps']},
+  vip:{label:'VIP',info:'VIP — + Добавки + Поглиблений аналіз',sections:['supps','deep']}
+};
+
+/* ═══ LABS DATA ═══ */
+var LABS_GENERAL=[
+  ['Загальний аналіз крові (ЗАК)','',''],['Гемоглобін','','Ч: 130–170 / Ж: 120–150 г/л'],
+  ['Лейкоцити','','4–9 × 10⁹/л'],['Тромбоцити','','150–400 × 10⁹/л'],
+  ['ШОЕ','','Ч: 2–15 / Ж: 2–20 мм/год'],['Глюкоза натще','','3.9–5.5 ммоль/л'],
+  ['HbA1c (глікований гемоглобін)','','<5.7%'],['Інсулін натще','','3–25 мкМО/мл'],
+  ['HOMA-IR (індекс резистентності)','','<2.7'],['Загальний холестерин','','<5.2 ммоль/л'],
+  ['ЛПНЩ (поганий холестерин)','','<3.0 ммоль/л'],['ЛПВЩ (хороший холестерин)','','Ч: >1.0 / Ж: >1.2 ммоль/л'],
+  ['Тригліцериди','','<1.7 ммоль/л'],['АЛТ','','Ч: 7–40 / Ж: 7–35 Од/л'],
+  ['АСТ','','10–40 Од/л'],['Загальний білірубін','','3.4–17.1 мкмоль/л'],
+  ['Сечовина','','2.5–8.3 ммоль/л'],['Креатинін','','Ч: 62–115 / Ж: 53–97 мкмоль/л'],
+  ['Феритин','','Ч: 30–400 / Ж: 13–150 мкг/л'],['Залізо сироватки','','10.7–32.2 мкмоль/л'],
+  ['Вітамін D (25-OH)','','30–80 нг/мл'],['Вітамін B12','','200–900 пг/мл'],
+  ['Фолієва кислота','','4.5–20 нг/мл'],['ТТГ (щитовидна залоза)','','0.27–4.2 мМО/мл'],
+  ['Т4 вільний','','0.93–1.7 нг/дл'],['С-реактивний білок (СРБ)','','<5 мг/л'],
+  ['Кортизол (ранковий 8:00)','','6.2–19.4 мкг/дл']
+];
+var LABS_MALE=[
+  ['Тестостерон загальний','','8.64–29 нмоль/л'],['Тестостерон вільний','','4.81–22.42 пг/мл'],
+  ['ЛГ (лютеїнізуючий гормон)','','1.7–8.6 мМО/мл'],['ФСГ (фолікулостимулюючий)','','1.5–12.4 мМО/мл'],
+  ['ГЗСГ (глобулін зв\'язуючий)','','18.3–54.1 нмоль/л'],['Естрадіол E2','','11.3–43.2 пг/мл'],
+  ['Пролактин','','4.04–15.2 нг/мл'],['ДГТ (дигідротестостерон)','','250–990 пг/мл'],
+  ['ПСА загальний (>40р)','','<4.0 нг/мл'],['ІФР-1 (IGF-1 / СТГ-маркер)','','115–307 нг/мл'],
+  ['ДГЕА-С (надниркові)','','80–560 мкг/дл']
+];
+var LABS_FEMALE=[
+  ['Естрадіол E2','','Фолікул. 12.5–166 / Лютеїн. 43.8–211 пг/мл'],
+  ['Прогестерон','','Фолікул. 0.31–1.52 / Лютеїн. 5.16–18.56 нг/мл'],
+  ['ЛГ','','Фолікул. 1.7–15 / Лютеїн. 0.5–16.9 мМО/мл'],
+  ['ФСГ','','Фолікул. 1.4–9.9 / Лютеїн. 0.8–8.8 мМО/мл'],
+  ['Тестостерон загальний','','0.31–3.78 нмоль/л'],['Пролактин','','4.8–23.3 нг/мл'],
+  ['ГЗСГ','','26.1–110 нмоль/л'],['ДГЕА-С','','35–430 мкг/дл'],
+  ['АМГ (антимюллерів гормон)','','1.0–10.6 нг/мл'],['Інсулін натще','','3–25 мкМО/мл'],
+  ['ІФР-1 (IGF-1)','','88–246 нг/мл'],['ТТГ (особливо важливо)','','0.27–4.2 мМО/мл']
+];
+
+/* ═══ LAB HELPERS ═══ */
+var LAB_ROW_ID=0;
+function initLabs(){
+  LABS_GENERAL.forEach(function(l){addLabRow('lab-rows-general',l[0],l[1],l[2]);});
+  LABS_MALE.forEach(function(l){addLabRow('lab-rows-male',l[0],l[1],l[2]);});
+  LABS_FEMALE.forEach(function(l){addLabRow('lab-rows-female',l[0],l[1],l[2]);});
+}
+function addLabRow(cid,name,result,norm){
+  LAB_ROW_ID++;
+  var id='lr-'+LAB_ROW_ID, row=document.createElement('div');
+  row.className='lab-row'; row.id=id;
+  row.innerHTML='<input placeholder="Показник" value="'+(name||'')+'"><input placeholder="—" value="'+(result||'')+'"><input placeholder="норма" value="'+(norm||'')+'"><button class="rm" type="button" onclick="document.getElementById(\''+id+'\').remove()">✕</button>';
+  document.getElementById(cid).appendChild(row);
+}
+function addLabCustom(){addLabRow('lab-rows-general','','','');}
+function readLabRows(cid){
+  var lines=[];
+  document.querySelectorAll('#'+cid+' .lab-row').forEach(function(row){
+    var inp=row.querySelectorAll('input');
+    var n=inp[0].value.trim(),r=inp[1].value.trim(),nm=inp[2].value.trim();
+    if(r) lines.push('   • '+n+(r?': '+r:'')+(nm?' (норма: '+nm+')':''));
+  });
+  return lines;
+}
+function setLabGender(g){
+  LAB_GENDER=g;
+  document.getElementById('lb-male').className='lg-btn lg-m'+(g==='male'?' on':'');
+  document.getElementById('lb-female').className='lg-btn lg-f'+(g==='female'?' on':'');
+  document.getElementById('lab-block-male').style.display=g==='male'?'':'none';
+  document.getElementById('lab-block-female').style.display=g==='female'?'':'none';
+}
+
+/* ═══ FORM TIER ═══ */
+function setTier(t){
+  TIER=t;
+  document.querySelectorAll('#page-form .tp').forEach(function(b){b.classList.remove('on');});
+  document.querySelector('#page-form .tp.'+t).classList.add('on');
+  document.getElementById('t-info').textContent=TIER_CFG[t].info;
+  var shown=TIER_CFG[t].shown;
+  Object.keys(DYNAMIC_SECTIONS).forEach(function(key){
+    var el=document.getElementById(DYNAMIC_SECTIONS[key]); if(!el) return;
+    var s=shown.indexOf(key)!==-1;
+    if(s){el.style.display='';el.offsetHeight;el.classList.remove('sec-hidden');el.classList.add('sec-visible','req');}
+    else{el.classList.remove('sec-visible');el.classList.add('sec-hidden');el.classList.remove('req');
+      (function(e){setTimeout(function(){if(e.classList.contains('sec-hidden'))e.style.display='none';},460);})(el);}
+  });
+  document.getElementById('prog').className='prog-fill pf-'+t;
+  document.getElementById('gen-btn').className='gen-btn gb-'+t;
+  updateProg();
+}
+
+/* ═══ DIARY TIER ═══ */
+function setDiaryTier(t){
+  DIARY_TIER=t;
+  document.querySelectorAll('#page-diary .tp').forEach(function(b){b.classList.remove('on');});
+  document.querySelector('#page-diary .tp.'+t).classList.add('on');
+  document.getElementById('dt-info').textContent=DIARY_TIER_CFG[t].info;
+  var secs=DIARY_TIER_CFG[t].sections;
+  document.querySelectorAll('[data-dsection]').forEach(function(el){
+    var key=el.getAttribute('data-dsection');
+    var show=secs.indexOf(key)!==-1;
+    el.style.display=show?'':'none';
+  });
+  document.getElementById('d-gen-btn').className='gen-btn gb-'+t;
+}
+
+/* ═══ WEEKLY TIER ═══ */
+function setWeeklyTier(t){
+  WEEKLY_TIER=t;
+  document.querySelectorAll('#page-weekly .tp').forEach(function(b){b.classList.remove('on');});
+  document.querySelector('#page-weekly .tp.'+t).classList.add('on');
+  document.getElementById('wt-info').textContent=WEEKLY_TIER_CFG[t].info;
+  var secs=WEEKLY_TIER_CFG[t].sections;
+  document.querySelectorAll('[data-wsection]').forEach(function(el){
+    var key=el.getAttribute('data-wsection');
+    el.style.display=secs.indexOf(key)!==-1?'':'none';
+  });
+  document.getElementById('w-gen-btn').className='gen-btn gb-'+t;
+}
+
+/* ═══ ACCORDION ═══ */
+function tog(hd){
+  var bd=hd.nextElementSibling, ch=hd.querySelector('.chev');
+  if(bd.classList.contains('open')){bd.classList.remove('open');bd.style.display='none';ch.classList.remove('up');}
+  else{bd.classList.add('open');bd.style.display='block';ch.classList.add('up');}
+}
+
+/* ═══ PILLS ═══ */
+function pick(el,gid){
+  document.querySelectorAll('#'+gid+' .pill').forEach(function(p){p.classList.remove('on');});
+  el.classList.add('on');
+  clearErr('e-'+gid.replace('g-',''));
+  updateProg();
+  // diary diet plan toggle
+  if(gid==='g-diet-plan'){
+    var val=el.textContent.trim();
+    var wrap=document.getElementById('d-diet-comment-wrap');
+    if(wrap) wrap.style.display=(val.indexOf('Так')!==-1)?'none':'block';
+  }
+}
+function multi(el){el.classList.toggle('on-multi');updateProg();}
+
+/* ═══ HELPERS ═══ */
+function v(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function gr(gid){var on=document.querySelector('#'+gid+' .pill.on');return on?on.textContent.trim():'';}
+function gm(gid){var a=[];document.querySelectorAll('#'+gid+' .pill.on-multi').forEach(function(p){a.push(p.textContent.trim());});return a.join(', ');}
+function clearErr(id){var e=document.getElementById(id);if(e)e.style.display='none';}
+
+/* ═══ PROGRESS ═══ */
+function updateProg(){
+  var cfg=TIER_CFG[TIER],total=cfg.required.length,filled=0;
+  cfg.required.forEach(function(r){if(r.type==='pill'?!!gr(r.id):!!v(r.id))filled++;});
+  document.getElementById('prog').style.width=(total>0?Math.round(filled/total*100):0)+'%';
+}
+
+/* ═══ VALIDATE FORM ═══ */
+function validate(){
+  var cfg=TIER_CFG[TIER],ok=true,first=null;
+  cfg.required.forEach(function(r){
+    var empty=r.type==='pill'?!gr(r.id):!v(r.id);
+    if(empty){
+      if(r.err){var el=document.getElementById(r.err);if(el)el.style.display='block';}
+      if(!first)first=document.getElementById(r.id);
+      ok=false;
+    }
+  });
+  if(first)first.scrollIntoView({behavior:'smooth',block:'center'});
+  return ok;
+}
+
+/* ═══ SCALE BUILDER ═══ */
+function buildScale(containerId, hiddenId){
+  var sc=document.getElementById(containerId); if(!sc) return;
+  for(var i=1;i<=10;i++){
+    var b=document.createElement('button');
+    b.className='sb';b.type='button';b.textContent=i;
+    b.onclick=(function(val,btn,hid){return function(){
+      document.querySelectorAll('#'+containerId+' .sb').forEach(function(x){x.classList.remove('on');});
+      btn.classList.add('on');
+      document.getElementById(hid).value=val;
+      updateProg();
+    };})(i,b,hiddenId);
+    sc.appendChild(b);
+  }
+}
+
+/* ═══ COPY ═══ */
+function copyOut(bodyId, btnId){
+  var text=document.getElementById(bodyId).textContent; if(!text) return;
+  var btn=document.getElementById(btnId);
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(text).then(function(){flashCopyBtn(btn);}).catch(function(){fbCopy(text,btn);});
+  } else {fbCopy(text,btn);}
+}
+function fbCopy(text,btn){
+  var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;top:-9999px;opacity:0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');flashCopyBtn(btn);}catch(e){}
+  document.body.removeChild(ta);
+}
+function flashCopyBtn(btn){
+  btn.textContent='✅ Скопійовано!';btn.classList.add('ok');
+  setTimeout(function(){btn.textContent='📋 Копіювати';btn.classList.remove('ok');},2500);
+}
+
+/* ═══ GENERATE FORM ═══ */
+function generateForm(){
+  document.querySelectorAll('#page-form .field-err').forEach(function(e){e.style.display='none';});
+  if(!validate()){
+    var msg=document.getElementById('val-msg');
+    msg.textContent='⚠️ Заповни обов\'язкові поля (★) — вони підсвічені вище';
+    msg.style.display='block';
+    setTimeout(function(){msg.style.display='none';},4500);
+    return;
+  }
+  document.getElementById('val-msg').style.display='none';
+  var cfg=TIER_CFG[TIER],shown=cfg.shown,L=[];
+  L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('⚡ REBOOT SYSTEM — АНКЕТА КЛІЄНТА');
+  L.push('📌 Рівень: '+cfg.label);
+  L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');L.push('');
+  L.push('👤 БАЗОВІ ДАНІ');
+  if(v('f-name'))L.push('   Ім\'я: '+v('f-name'));
+  if(v('f-age'))L.push('   Вік: '+v('f-age')+' р.');
+  if(v('f-gender'))L.push('   Стать: '+v('f-gender'));
+  if(v('f-city'))L.push('   Місто: '+v('f-city'));
+  if(v('f-contacts'))L.push('   Контакт: '+v('f-contacts'));
+  L.push('');L.push('📏 АНТРОПОМЕТРІЯ');
+  if(v('f-weight'))L.push('   Вага: '+v('f-weight')+' кг');
+  if(v('f-height'))L.push('   Зріст: '+v('f-height')+' см');
+  if(v('f-weight')&&v('f-height'))L.push('   ІМТ: '+(parseFloat(v('f-weight'))/Math.pow(parseFloat(v('f-height'))/100,2)).toFixed(1));
+  if(v('f-fat'))L.push('   Жир: '+v('f-fat')+'%');
+  if(v('f-waist'))L.push('   Талія: '+v('f-waist')+' см');
+  var bt=gr('g-body-type');if(bt)L.push('   Статура: '+bt);
+  L.push('');L.push('🎯 ЦІЛІ');
+  var mg=gr('g-main-goal');if(mg)L.push('   Ціль: '+mg);
+  if(v('f-timeline'))L.push('   Термін: '+v('f-timeline')+' міс.');
+  if(v('f-level'))L.push('   Підготовка: '+v('f-level'));
+  if(v('f-tried'))L.push('   Не спрацювало: '+v('f-tried'));
+  if(v('f-motivation'))L.push('   Мотивація: '+v('f-motivation'));
+  L.push('');L.push('🥩 ХАРЧУВАННЯ');
+  if(v('f-meals'))L.push('   Прийомів: '+v('f-meals'));
+  if(v('f-diet'))L.push('   Тип: '+v('f-diet'));
+  if(v('f-food'))L.push('   Раціон: '+v('f-food'));
+  if(v('f-allergy'))L.push('   Алергії: '+v('f-allergy'));
+  if(v('f-supps'))L.push('   Добавки: '+v('f-supps'));
+  var fa=gr('g-food-access');if(fa)L.push('   Умови: '+fa);
+  L.push('');L.push('🏋️ ТРЕНІНГ');
+  var tf=gr('g-train-freq');if(tf)L.push('   Частота: '+tf);
+  var eq=gr('g-equip');if(eq)L.push('   Обладнання: '+eq);
+  var ls=gr('g-lifestyle');if(ls)L.push('   Спосіб життя: '+ls);
+  if(v('f-train'))L.push('   Тренінг: '+v('f-train'));
+  if(v('f-injuries'))L.push('   Травми: '+v('f-injuries'));
+  if(shown.indexOf('health')!==-1){
+    L.push('');L.push('❤️ ЗДОРОВ\'Я');
+    if(v('f-sleep'))L.push('   Сон: '+v('f-sleep'));
+    if(v('f-stress'))L.push('   Стрес: '+v('f-stress')+'/10');
+    var sym=gm('g-symptoms');if(sym)L.push('   Скарги: '+sym);
+    if(v('f-conditions'))L.push('   Хронічні: '+v('f-conditions'));
+    if(v('f-meds'))L.push('   Ліки: '+v('f-meds'));
+  }
+  if(shown.indexOf('psych')!==-1){
+    var pers=gr('g-personality'),fr=gr('g-food-rel'),cs=gr('g-coach');
+    if(pers||fr||cs||v('f-barriers')){
+      L.push('');L.push('🧠 ПСИХОЛОГІЯ');
+      if(pers)L.push('   Тип: '+pers);
+      if(fr)L.push('   Їжа: '+fr);
+      if(cs)L.push('   Від коуча: '+cs);
+      if(v('f-barriers'))L.push('   Бар\'єри: '+v('f-barriers'));
+    }
+  }
+  var genR=readLabRows('lab-rows-general');
+  var specR=LAB_GENDER==='male'?readLabRows('lab-rows-male'):readLabRows('lab-rows-female');
+  if(genR.length>0||specR.length>0){
+    L.push('');L.push('🔬 АНАЛІЗИ КРОВІ'+(v('f-lab-date')?' ('+v('f-lab-date')+')':''));
+    if(genR.length>0){L.push('   ─ Загальні:');genR.forEach(function(r){L.push(r);});}
+    if(specR.length>0){L.push('   ─ '+(LAB_GENDER==='male'?'Чоловічі гормони:':'Жіночі гормони:'));specR.forEach(function(r){L.push(r);});}
+  }
+  var pl=v('f-plan'),sd=v('f-start'),nt=v('f-notes'),fc=v('f-focus');
+  if(pl||sd||nt||fc){
+    L.push('');L.push('📋 ДОДАТКОВА ІНФОРМАЦІЯ');
+    if(pl)L.push('   Програма: '+pl);if(sd)L.push('   Дата старту: '+sd);
+    if(fc)L.push('   Фокус: '+fc);if(nt)L.push('   Нотатки: '+nt);
+  }
+  L.push('');L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('🌐 REBOOT SYSTEM  ✈️ @mzhukovd.rebootsystem');
+  var text=L.join('\n');
+  document.getElementById('out-body').textContent=text;
+  document.getElementById('out-lbl').textContent=cfg.label+' · Анкета клієнта';
+  var ow=document.getElementById('out-wrap');ow.style.display='block';
+  ow.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ═══ GENERATE DIARY ═══ */
+function generateDiary(){
+  var cfg=DIARY_TIER_CFG[DIARY_TIER],L=[];
+  var date=v('d-date')||'(дата не вказана)';
+  var trained=gr('g-trained');
+  L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('📅 REBOOT SYSTEM — ЩОДЕННИЙ ЗВІТ');
+  L.push('📌 Рівень: '+cfg.label+' · '+date);
+  L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');L.push('');
+  // Харчування
+  L.push('🥩 ХАРЧУВАННЯ');
+  if(v('d-breakfast'))L.push('   Сніданок: '+v('d-breakfast'));
+  if(v('d-lunch'))L.push('   Обід: '+v('d-lunch'));
+  if(v('d-dinner'))L.push('   Вечеря: '+v('d-dinner'));
+  if(v('d-snacks'))L.push('   Перекуси: '+v('d-snacks'));
+  if(v('d-water'))L.push('   Вода: '+v('d-water'));
+  var dp=gr('g-diet-plan');if(dp)L.push('   План харчування: '+dp);
+  if(v('d-diet-comment'))L.push('   Коментар: '+v('d-diet-comment'));
+  // Тренування
+  L.push('');L.push('🏋️ ТРЕНУВАННЯ');
+  if(trained)L.push('   Статус: '+trained);
+  if(trained.indexOf('Так')!==-1){
+    if(v('d-train-what'))L.push('   Що робив: '+v('d-train-what'));
+    if(v('d-train-dur'))L.push('   Тривалість: '+v('d-train-dur')+' хв');
+    if(v('d-train-feel'))L.push('   Самопочуття: '+v('d-train-feel')+'/10');
+  }
+  if(trained.indexOf('Пропустив')!==-1&&v('d-train-skip-why'))L.push('   Причина: '+v('d-train-skip-why'));
+  // Сон
+  L.push('');L.push('😴 СОН ТА ВІДНОВЛЕННЯ');
+  if(v('d-sleep-h'))L.push('   Годин сну: '+v('d-sleep-h'));
+  if(v('d-sleep-q'))L.push('   Якість сну: '+v('d-sleep-q')+'/10');
+  if(v('d-stress-q'))L.push('   Стрес за день: '+v('d-stress-q')+'/10');
+  if(v('d-energy-q'))L.push('   Енергія за день: '+v('d-energy-q')+'/10');
+  // Добавки (Flagman+)
+  if(cfg.sections.indexOf('supps')!==-1){
+    if(v('d-supps-taken')||v('d-supps-missed')){
+      L.push('');L.push('💊 ДОБАВКИ');
+      if(v('d-supps-taken'))L.push('   Прийняті: '+v('d-supps-taken'));
+      if(v('d-supps-missed'))L.push('   Пропущені: '+v('d-supps-missed'));
+    }
+  }
+  // Біометрія (Flagman+)
+  if(cfg.sections.indexOf('bio')!==-1){
+    if(v('d-weight')||v('d-waist')){
+      L.push('');L.push('📏 БІОМЕТРІЯ');
+      if(v('d-weight'))L.push('   Вага: '+v('d-weight')+' кг');
+      if(v('d-waist'))L.push('   Талія: '+v('d-waist')+' см');
+    }
+  }
+  // Психологія (VIP)
+  if(cfg.sections.indexOf('psych')!==-1){
+    var mot=gr('g-motivation-d'),fb=gr('g-food-beh'),ms=gr('g-morning-state');
+    if(mot||fb||ms||v('d-libido')||v('d-focus')){
+      L.push('');L.push('🧠 ГОРМОНИ ТА ПСИХОЛОГІЯ');
+      if(mot)L.push('   Мотивація: '+mot);
+      if(fb)L.push('   Харчова поведінка: '+fb);
+      if(ms)L.push('   Ранковий стан: '+ms);
+      if(v('d-libido'))L.push('   Гормональний тонус: '+v('d-libido')+'/10');
+      if(v('d-focus'))L.push('   Когнітивна ясність: '+v('d-focus')+'/10');
+    }
+  }
+  // Нотатки
+  if(v('d-good')||v('d-hard')||v('d-question')){
+    L.push('');L.push('💬 НОТАТКИ ДЛЯ КОУЧА');
+    if(v('d-good'))L.push('   ✅ Добре: '+v('d-good'));
+    if(v('d-hard'))L.push('   ⚡ Складно: '+v('d-hard'));
+    if(v('d-question'))L.push('   ❓ Питання: '+v('d-question'));
+  }
+  L.push('');L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('🌐 REBOOT SYSTEM  ✈️ @mzhukovd.rebootsystem');
+  var text=L.join('\n');
+  document.getElementById('d-out-body').textContent=text;
+  document.getElementById('d-out-lbl').textContent=cfg.label+' · Щоденник · '+date;
+  var ow=document.getElementById('d-out-wrap');ow.style.display='block';
+  ow.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ═══ GENERATE WEEKLY ═══ */
+function generateWeekly(){
+  var cfg=WEEKLY_TIER_CFG[WEEKLY_TIER],L=[];
+  var wfrom=v('w-from')||'?';var wto=v('w-to')||'?';
+  L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('📊 REBOOT SYSTEM — ТИЖНЕВИЙ ЗВІТ');
+  L.push('📌 Рівень: '+cfg.label+' · '+wfrom+' — '+wto);
+  L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');L.push('');
+  // Заміри
+  L.push('📏 ЗАМІРИ ТІЛА');
+  if(v('w-weight-start'))L.push('   Вага (початок): '+v('w-weight-start')+' кг');
+  if(v('w-weight-end'))L.push('   Вага (кінець): '+v('w-weight-end')+' кг');
+  if(v('w-weight-start')&&v('w-weight-end')){
+    var diff=(parseFloat(v('w-weight-end'))-parseFloat(v('w-weight-start'))).toFixed(1);
+    L.push('   Зміна: '+(diff>0?'+':'')+diff+' кг');
+  }
+  if(v('w-waist'))L.push('   Талія: '+v('w-waist')+' см');
+  if(v('w-fat'))L.push('   % жиру: '+v('w-fat')+'%');
+  var bf=gr('g-body-feel');if(bf)L.push('   Відчуття від тіла: '+bf);
+  // Виконання плану
+  L.push('');L.push('🎯 ВИКОНАННЯ ПЛАНУ');
+  if(v('w-train-plan'))L.push('   Тренувань по плану: '+v('w-train-plan'));
+  if(v('w-train-actual'))L.push('   Тренувань факт: '+v('w-train-actual'));
+  if(v('w-train-plan')&&v('w-train-actual')){
+    var pct=Math.round(parseInt(v('w-train-actual'))/parseInt(v('w-train-plan'))*100);
+    L.push('   Виконання: '+pct+'%');
+  }
+  var fc=gr('g-food-comp');if(fc)L.push('   Харчування: '+fc);
+  if(v('w-deviation'))L.push('   Відхилення: '+v('w-deviation'));
+  // Відновлення
+  L.push('');L.push('😴 СОН ТА ВІДНОВЛЕННЯ (середнє за тиждень)');
+  if(v('w-sleep-avg'))L.push('   Сон: '+v('w-sleep-avg')+' год');
+  if(v('w-sleep-q'))L.push('   Якість сну: '+v('w-sleep-q')+'/10');
+  if(v('w-stress-q'))L.push('   Стрес: '+v('w-stress-q')+'/10');
+  if(v('w-energy-q'))L.push('   Енергія: '+v('w-energy-q')+'/10');
+  // Результати
+  L.push('');L.push('💪 ПРОГРЕС ТА РЕЗУЛЬТАТИ');
+  if(v('w-best'))L.push('   ✅ Найкраще: '+v('w-best'));
+  if(v('w-fail'))L.push('   ❌ Не вийшло: '+v('w-fail'));
+  if(v('w-overall-q'))L.push('   Оцінка тижня: '+v('w-overall-q')+'/10');
+  var wc=gr('g-week-comp');if(wc)L.push('   Порівняно з минулим: '+wc);
+  // Добавки (Flagman+)
+  if(cfg.sections.indexOf('supps')!==-1){
+    var sc=gr('g-supps-comp');
+    if(sc||v('w-supps-miss')){
+      L.push('');L.push('💊 ДОБАВКИ');
+      if(sc)L.push('   Дотримання: '+sc);
+      if(v('w-supps-miss'))L.push('   Пропуски: '+v('w-supps-miss'));
+    }
+  }
+  // Поглиблений аналіз (VIP)
+  if(cfg.sections.indexOf('deep')!==-1){
+    var ws=gr('g-week-state'),wfb=gr('g-week-food-beh');
+    if(ws||wfb||v('w-libido')||v('w-pattern')||v('w-next')){
+      L.push('');L.push('🔬 ПОГЛИБЛЕНИЙ АНАЛІЗ (VIP)');
+      if(ws)L.push('   Домінуючий стан: '+ws);
+      if(wfb)L.push('   Харчова поведінка: '+wfb);
+      if(v('w-libido'))L.push('   Гормональний тонус: '+v('w-libido')+'/10');
+      if(v('w-pattern'))L.push('   Патерн тижня: '+v('w-pattern'));
+      if(v('w-next'))L.push('   На наступний тиждень: '+v('w-next'));
+    }
+  }
+  // Питання до коуча
+  if(v('w-questions')||v('w-focus')){
+    L.push('');L.push('💬 ПИТАННЯ ДО КОУЧА');
+    if(v('w-questions'))L.push('   Питання: '+v('w-questions'));
+    if(v('w-focus'))L.push('   Фокус наступного тижня: '+v('w-focus'));
+  }
+  L.push('');L.push('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  L.push('🌐 REBOOT SYSTEM  ✈️ @mzhukovd.rebootsystem');
+  var text=L.join('\n');
+  document.getElementById('w-out-body').textContent=text;
+  document.getElementById('w-out-lbl').textContent=cfg.label+' · Тижневий звіт · '+wfrom;
+  var ow=document.getElementById('w-out-wrap');ow.style.display='block';
+  ow.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ═══ TRAIN TOGGLE (diary) ═══ */
+function dTrainToggle(el, mode){
+  document.querySelectorAll('#g-trained .pill').forEach(function(p){p.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('d-train-yes-block').style.display = mode==='yes' ? 'block' : 'none';
+  document.getElementById('d-train-skip-block').style.display = mode==='skip' ? 'block' : 'none';
+}
+
+/* ═══ INIT ═══ */
+// Set today's date defaults
+(function(){
+  var today = new Date();
+  var fmt = function(d){return d.toISOString().split('T')[0];};
+  var dEl = document.getElementById('d-date');
+  if(dEl) dEl.value = fmt(today);
+  var wTo = document.getElementById('w-to');
+  if(wTo) wTo.value = fmt(today);
+  var wFrom = new Date(today);
+  wFrom.setDate(today.getDate()-6);
+  var wFromEl = document.getElementById('w-from');
+  if(wFromEl) wFromEl.value = fmt(wFrom);
+})();
+
+// Build all scales
+buildScale('stress-scale','f-stress');
+buildScale('d-train-feel-scale','d-train-feel');
+buildScale('d-sleep-scale','d-sleep-q');
+buildScale('d-stress-scale','d-stress-q');
+buildScale('d-energy-scale','d-energy-q');
+buildScale('d-libido-scale','d-libido');
+buildScale('d-focus-scale','d-focus');
+buildScale('w-sleep-scale','w-sleep-q');
+buildScale('w-stress-scale','w-stress-q');
+buildScale('w-energy-scale','w-energy-q');
+buildScale('w-overall-scale','w-overall-q');
+buildScale('w-libido-scale','w-libido');
+
+// Init labs
+initLabs();
+setLabGender('male');
+
+// Init tiers
+Object.keys(DYNAMIC_SECTIONS).forEach(function(key){
+  var el=document.getElementById(DYNAMIC_SECTIONS[key]);
+  if(el){el.style.display='none';el.classList.add('sec-hidden');}
+});
+setTier('flag');
+setDiaryTier('flag');
+setWeeklyTier('flag');
+
+// Live progress
+['f-name','f-age','f-weight','f-height','f-food','f-sleep','f-contacts'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el)el.addEventListener('input',function(){clearErr('e-'+id.replace('f-',''));updateProg();});
+});
+</script>
+</body>
+</html>
